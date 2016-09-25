@@ -1,0 +1,7 @@
+_site
+.tmp
+.sass-cache
+node_modules
+lib
+Thumbs.db
+.jekyll-metadata
