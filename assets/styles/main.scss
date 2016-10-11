@@ -1,0 +1,9 @@
+//*!
+// * Main - the main styles defined here - this file will be imported by layout specific SASS files
+// */
+// See bootstrap customization tips at https://www.smashingmagazine.com/2013/03/customizing-bootstrap/
+// and https://www.sitepoint.com/bootstrap-sass-installation-and-customisation/
+@import "variables";
+@import "vendor/bootstrap/bootstrap";
+@import "vendor/font-awesome/font-awesome";
+@import "site";

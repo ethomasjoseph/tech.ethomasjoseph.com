@@ -1,0 +1,36 @@
+/*!
+ * Site - define global site styles here.
+ */
+@import "variables";
+@import "layouts/navheader";
+@import "layouts/footer";
+
+// Global New Styles
+.monospace {
+    font-family: $font-family-monospace;
+}
+
+
+// Global Elements
+.brand-text {
+    background-color: white;
+    text-align: center;
+    font-size: $font-size-h3;
+    padding: 10px;
+    margin-left: 15px;
+    height: floor(($font-size-h2 * 1.4));
+    width: floor(($font-size-h2 * 1.4));
+    color: $color-primary-0;
+    border-radius: 50%;
+}
+
+
+body {
+    padding-top: 73px;
+    @media (min-width: $screen-sm-min) {
+        padding-top: 170px;
+    }
+    @media (min-width: $screen-lg-min) {
+        padding-top: 145px;
+    }
+}

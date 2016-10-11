@@ -6,7 +6,11 @@ kramdown:
   input: GFM
   hard_wrap: false
 
-exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md", "CNAME", "Gemfile", "Gemfile.lock", "blogger-import"]
+exclude: [".rvmrc", ".rbenv-version", "README.md", "LICENSE.md", "Rakefile", "changelog.md", "CNAME", "Gemfile", "Gemfile.lock", "blogger-import", "node_modules", "lib", "package.json", "bower.json", "gulpfile", ".jshintrc", "config.json"]
+
+sass:
+    sass_dir: assets/styles
+#    style: compressed
 #auto: true
 #pygments: true
 
@@ -14,8 +18,8 @@ exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md", "
 # Themes are encouraged to use these universal variables
 # so be sure to set them if your theme uses them.
 #
-title : "<tech-musings/>"
-tagline: "Thomas Joseph's technology bliki"
+shorttitle : "TJ"
+title: "TJ's technology bliki"
 description: Musings on software, technology, marketing, business and everything related to my passion & profession
 author :
   name : Thomas Joseph
@@ -23,6 +27,7 @@ author :
   github : ethomasjoseph
   twitter : ethomasjoseph
   feedburner : ethomasjoseph
+  linkedin: in/ethomasjoseph
 
 # The production_url is only used when full-domain names are needed
 # such as sitemap.txt

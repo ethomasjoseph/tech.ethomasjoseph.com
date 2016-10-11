@@ -1,0 +1,27 @@
+{
+  "name": "tech.ethomasjoseph.com",
+  "version": "1.0.0",
+  "homepage": "http://tech.ethomasjoseph.com",
+  "authors": [
+    "Thomas Joseph <ethomas.joseph@gmail.com>"
+  ],
+  "description": "Project to manage Thomas Joseph's technical bliki",
+  "main": "index.html",
+  "keywords": [
+    "blog"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "4.6.3",
+    "holderjs": "^2.9.4",
+    "bootstrap-sass": "^3.3.7"
+  }
+}

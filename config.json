@@ -1,0 +1,84 @@
+{
+	"debug" : false,
+    "bowerDir": "lib",
+	"distDir": "assets",
+    "vendorFiles" : {
+        "js" : {
+            "filterExpr" : "**/*.js",
+            "overrides" : {
+                "jquery" : {
+                    "main" : [
+                        "./dist/jquery.js"
+                    ]
+                },
+                "bootstrap-sass": {
+                    "main": [
+                        "./assets/javascripts/bootstrap.js"
+                    ]
+                },
+                "holderjs" : {
+                    "main": [
+                        "./holder.js"
+                    ]
+                },
+                "font-awesome" : {
+                    "ignore" : true
+                }
+            },
+            "destDir" : "./assets/js/vendor",
+            "dest" : "vendor.js"
+        },
+        "fonts" : {
+            "filterExpr" : "**/*.{otf,eot,svg,ttf,woff}*",
+            "overrides" : {
+                "bootstrap-sass": {
+                    "main": [
+                        "./assets/fonts/bootstrap/*.{otf,eot,svg,ttf,woff}*"
+                    ]
+                },
+                "font-awesome" : {
+                    "main" : [
+                        "fonts/*.{otf,eot,svg,ttf,woff}*"
+                    ]
+                },
+                "jquery" : {
+                    "ignore" : true
+                },
+                "holderjs" : {
+                    "ignore" : true
+                }
+            },
+            "destDir" : "./assets/fonts/vendor"
+        },
+        "sass" : {
+            "filterExpr" : "**/*.{scss,sass}",
+            "overrides" : {
+                "bootstrap-sass": {
+                    "main": [
+                        "./assets/stylesheets/**/*.scss"
+                    ]
+                },
+                "font-awesome" : {
+                    "main" : [
+                        "scss/*.{sass,scss}"
+                    ]
+                },
+                "jquery" : {
+                    "ignore" : true
+                },
+                "holderjs" : {
+                    "ignore" : true
+                }
+
+            },
+            "destDir" : "./assets/styles/vendor" 
+        }       
+    },
+    "app" : {
+        "jsDir" : "assets/js",
+        "stylesDir" : "assets/styles",
+        "imagesDir" : "assets/images",
+        "fontsDir" : "assets/fonts",
+        "siteRoot" : "_site"
+    }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "tech.ethomasjoseph.com",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Project to manage Thomas Joseph's technical bliki",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ethomasjoseph/tech.ethomasjoseph.com"
+  },
+  "keywords": [
+    "blog",
+    "website",
+    "bliki",
+    "wiki"
+  ],
+  "scripts": {
+    "start": "gulp serve"
+  },
+  "devDependencies": {
+    "browser-sync": "2.17.0",
+    "del": "2.2.2",
+    "gulp": "3.9.1",
+    "gulp-bootlint": "0.8.0",
+    "gulp-bower": "0.0.13",
+    "gulp-concat": "2.6.0",
+    "gulp-filter": "4.0.0",
+    "gulp-jshint": "2.0.1",
+    "gulp-main-bower-files": "1.5.3",
+    "gulp-rename": "1.2.2",
+    "gulp-uglify": "2.0.0",
+    "gulp-usemin": "0.3.24",
+    "gulp-util": "3.0.7",
+    "jshint": "2.9.3",
+    "jshint-stylish": "2.2.1"
+  },
+  "author": "Thomas Joseph <ethomas.joseph@gmail.com>",
+  "license": "MIT",
+  "homepage": "http://tech.ethomasjoseph.com",
+  "engines": {
+    "node": ">=4.4.5"
+  }
+}

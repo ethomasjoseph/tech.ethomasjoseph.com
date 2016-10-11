@@ -1,0 +1,64 @@
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container hidden-xs">
+        <div class="row row-header hidden-xs ">
+            <div class="col-sm-9 page-heading">
+                <h1>{{ site.title }}</h1>
+                <p class="site-description">{{ site.description }}</p>
+            </div>
+            <div class="col-sm-3 pull-right">
+                <div class="socialconnect text-right">
+                    <a target="_blank" class="btn btn-social-icon" href="https://www.linkedin.com/{{ site.author.linkedin}}"><i class="fa fa-linkedin-square fa-2x"></i></a>
+                    <a target="_blank" class="btn btn-social-icon" href="https://twitter.com/{{ site.author.twitter}}"><i class="fa fa-twitter fa-2x"></i></a>
+                    <a target="_blank" class="btn btn-social-icon" href="https://github.com/{{ site.author.github}}"><i class="fa fa-github fa-2x"></i></a>
+                    <a target="_blank" class="btn btn-social-icon" href="http://feeds.feedburner.com/{{ site.author.feedburner}}"><i class="fa fa-rss fa-2x"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navbar-inverse">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed navbar-text" data-toggle="collapse" data-target="#tj-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span><i class="fa fa-bars"></i>
+                    <small class="initialism">Menu</small>
+                </button>
+                <button type="submit" class="search-icon navbar-toggle collapsed navbar-text" data-toggle="collapse"><i class="glyphicon glyphicon-search"></i></button>
+                <a href="/" class="navbar-brand navbar-text visible-xs-block brand-text">{{ site.shorttitle }}</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="tj-navbar-collapse" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#about">Digital Marketing</a>
+                    </li>
+                    <li>
+                        <a href="#services">JavaScript</a>
+                    </li>
+                    <li>
+                        <a href="#portfolio">Adobe AEM</a>
+                    </li>
+                    <li>
+                        <a href="#contact">OSGi</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right hidden-xs">
+                    <li>
+                        <a class="search-icon"><i class="glyphicon glyphicon-search"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div id="search-wrapper" class="row">
+        <div class="col-xs-12">
+            <form role="search" method="get" action="{{site.baseurl}}/search/">
+                <input type="search" name="q" class="form-control" id="txtSearch" placeholder="Explore this site...">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
