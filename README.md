@@ -8,6 +8,7 @@ This uses an interesting mix of technology - aptly to power my technology bliki:
 
 # Driving Forces
 The reason for me to start a Github powered website had multiple reasons:
+
 1. [Flexibility](http://www.martinfowler.com/bliki/WhatIsaBliki.html) of a blog & wiki as described by Martin Fowler. I used Blogger all since 2006 for my blog, but I always wanted more power - especially when dealing with technology topics.
 2. Power and flexibility to control the look and feel of the content published.
 3. Learning and apply some frontend technologies such as Bootstrap, Bower & Gulp.
