@@ -20,8 +20,10 @@ While the primary focus of this project is to control the content of my website(
 Having a [Yeoman](http://yeoman.io/) generator is even better, but just too far away at this point of time to consider doing it myself. But this being available on Github, I would not be surprised if someone will come up with a Yeoman generator!
 
 # Setting up your local environment
-1. Install latest version of ruby and devkit - from http://rubyinstaller.org/downloads/.
-2. Install Jekyll and other dependencies
+#### 1. Install latest version of ruby and devkit - from http://rubyinstaller.org/downloads/.
+
+#### 2. Install Jekyll and other dependencies
+
 ```bash
 gem install jekyll
 gem install bundler
@@ -29,17 +31,23 @@ gem install github-pages
 gem install jemoji
 gem install wdm
 ```
-3. Delete the ```Gemfile.lock``` and rebuild it:
+#### 3. Delete the ```Gemfile.lock``` and rebuild it:
+
 ```bash
 bundle install
 ```
-4. Make changes and run Jekyll locally to confirm that the command executes properly. Do not focus on the website output yet. More information on Jekyll on its official documentation at https://jekyllrb.com/docs/home/.
+
+#### 4. Make changes and run Jekyll locally to confirm that the command executes properly. Do not focus on the website output yet. More information on Jekyll on its official documentation at https://jekyllrb.com/docs/home/.
 ```bash
 bundle exec jekyll serve
 ```
-5. No doubt - you will have to also setup NodeJS and its friends. Install the latest NodeJS from https://nodejs.org/.
-6. Now install Gulp as described in https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md.
-7. Now setup initial NodeJS dependencies for this project
+
+#### 5. No doubt - you will have to also setup NodeJS and its friends. Install the latest NodeJS from https://nodejs.org/.
+
+#### 6. Now install Gulp as described in https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md.
+
+#### 7. Now setup initial NodeJS dependencies for this project
+
 ```bash
 npm install
 ```
