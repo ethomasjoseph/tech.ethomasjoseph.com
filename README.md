@@ -6,7 +6,7 @@ This uses an interesting mix of technology - aptly to power my technology bliki:
 * [Bootstrap](http://getbootstrap.com/) & [jQuery](https://jquery.com/)
 * [NodeJS](https://nodejs.org) and friends ([Bower](https://bower.io/), [Gulp](http://gulpjs.com/) etc.)
 
-# Driving Forces
+## Driving Forces
 The reason for me to start a Github powered website had multiple reasons:
 
 1. [Flexibility](http://www.martinfowler.com/bliki/WhatIsaBliki.html) of a blog & wiki as described by Martin Fowler. I used Blogger since 2006 for my blog, but I always wanted more power - especially when dealing with technology topics.
@@ -14,12 +14,12 @@ The reason for me to start a Github powered website had multiple reasons:
 3. Learning and apply some frontend technologies such as Bootstrap, Bower & Gulp.
 4. Free - as in free speech as well as free as in free beer. Being in Github does not require me to have a web hosting provider. The even better part is that it is free for anyone to see and learn. 
 
-## Focus
+### Focus
 While the primary focus of this project is to control the content of my website(s), I will also try to focus that the overall project is reusable enough, so that anyone with similar intent can simply clone this repository - make changes and get started fast.
 
 Having a [Yeoman](http://yeoman.io/) generator is even better, but just too far away at this point of time to consider doing it myself. But this being available on Github, I would not be surprised if someone will come up with a Yeoman generator!
 
-# Setting up your local environment
+## Setting up your local environment
 #### 1. Install latest version of ruby and devkit - from http://rubyinstaller.org/downloads/.
 
 #### 2. Install Jekyll and other dependencies
