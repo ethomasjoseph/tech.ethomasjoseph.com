@@ -76,10 +76,10 @@ Simply running ```gulp``` will do all the above tasks, but without running the J
 
 Commit the files and pushing it to Github will publish the files.
 
-# Contributions
+## Contributions
 Please use the issues tracker on Github to report any issues on this project. 
 
-# References
+## References
 * Github Pages documentation - https://pages.github.com/
 * Inspiration on Jekyll with Bootstrap - http://jekyllbootstrap.com/
 * Import your old & busted site or blog for use with Jekyll - http://import.jekyllrb.com/
