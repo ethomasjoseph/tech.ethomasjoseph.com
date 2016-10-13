@@ -161,7 +161,7 @@ gulp.task('jekyll', function() {
         };
     };
 
-    var jekyllProc = child.exec('bundle exec jekyll serve --incremental --watch --force_polling');
+    var jekyllProc = child.exec("bundle exec jekyll serve --baseurl '' --incremental --watch --force_polling");
     
     jekyllProc.stdout.on('data', jekyllLogger('blue'));
     jekyllProc.stderr.on('data', jekyllLogger('red'));

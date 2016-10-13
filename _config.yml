@@ -23,6 +23,7 @@ title: "TJ's technology bliki"
 description: Musings on software, technology, marketing, business and everything related to my passion & profession
 author :
   name : Thomas Joseph
+  profile: Coding Architect
   email : ethomas.joseph@gmail.com
   github : ethomasjoseph
   twitter : ethomasjoseph
@@ -38,6 +39,10 @@ author :
 # Finally if you are pushing to a GitHub project page, include the project name at the end.
 #
 production_url : http://tech.ethomasjoseph.com
+
+# baseurl is useful when you are hosting this as a project page on 
+# github where this would be the name of your project prefixed with a forward slash.
+baseurl: /jekyll-bootstrap-gulp
 
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
 #
