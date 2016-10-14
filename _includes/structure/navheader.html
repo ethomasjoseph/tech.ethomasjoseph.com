@@ -2,7 +2,7 @@
     <div class="container hidden-xs">
         <div class="row row-header hidden-xs ">
             <div class="col-sm-9 page-heading">
-                <h1>{{ site.title }}</h1>
+                <h1 class="site-title">{{ site.title }}</h1>
                 <p class="site-description">{{ site.description }}</p>
             </div>
             <div class="col-sm-3 pull-right">
@@ -14,7 +14,7 @@
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed navbar-text" data-toggle="collapse" data-target="#tj-navbar-collapse">
+                <button id="tj-menu-button" type="button" class="navbar-toggle collapsed navbar-text" data-toggle="collapse" data-target="#tj-navbar-collapse">
                     <span class="sr-only">Toggle navigation</span><i class="fa fa-bars"></i>
                     <small class="initialism">Menu</small>
                 </button>
@@ -47,13 +47,13 @@
         </div>
     </div>
     <div class="container-fluid">
-    <div id="search-wrapper" class="row">
-        <div class="col-xs-12">
-            <form role="search" method="get" action="{{site.baseurl}}/search/">
-                <input type="search" name="q" class="form-control" id="txtSearch" placeholder="Explore this site...">
-                <button type="submit" class="btn btn-primary">Search</button>
-            </form>
+        <div id="search-wrapper" class="row">
+            <div class="col-xs-12">
+                <form role="search" method="get" action="{{site.baseurl}}/search/">
+                    <input type="search" name="q" class="form-control" id="txtSearch" placeholder="Explore this site...">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
         </div>
-    </div>
 </div>
 </nav>

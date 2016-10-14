@@ -6,6 +6,26 @@
     .socialconnect {
         margin-top: 25px;
     }
+    
+    &.shrink {
+        .row-header {
+            .site-title {
+                font-size: $font-size-h2;
+                margin-top: 10px;
+            }
+            .site-description {
+                display: none;
+            }
+        }
+        .socialconnect {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: -30px;
+            .fa {
+               font-size: 1em; 
+            }
+        }
+    }
 }
 
 .container-fluid {
