@@ -6,12 +6,7 @@
                 <p class="site-description">{{ site.description }}</p>
             </div>
             <div class="col-sm-3 pull-right">
-                <div class="socialconnect text-right">
-                    <a target="_blank" class="btn btn-social-icon" href="https://www.linkedin.com/{{ site.author.linkedin}}"><i class="fa fa-linkedin-square fa-2x"></i></a>
-                    <a target="_blank" class="btn btn-social-icon" href="https://twitter.com/{{ site.author.twitter}}"><i class="fa fa-twitter fa-2x"></i></a>
-                    <a target="_blank" class="btn btn-social-icon" href="https://github.com/{{ site.author.github}}"><i class="fa fa-github fa-2x"></i></a>
-                    <a target="_blank" class="btn btn-social-icon" href="http://feeds.feedburner.com/{{ site.author.feedburner}}"><i class="fa fa-rss fa-2x"></i></a>
-                </div>
+                {% include fragments/social-connect.html alightmentclass="text-right" sizeclass="fa-2x" %}
             </div>
         </div>
     </div>

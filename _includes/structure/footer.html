@@ -10,12 +10,7 @@
                 <h6>Copyright &copy; {{author.name}} {{ 'now' | date: "%Y" }} {{ site.author.name }}. All rights reserved.</h6>
             </div>
             <div class="col-xs-6 text-right">
-                <div class="socialconnect">
-                    <a target="_blank" class="btn btn-social-icon" href="https://www.linkedin.com/{{ site.author.linkedin}}"><i class="fa fa-linkedin-square"></i></a>
-                    <a target="_blank" class="btn btn-social-icon" href="https://twitter.com/{{ site.author.twitter}}"><i class="fa fa-twitter"></i></a>
-                    <a target="_blank" class="btn btn-social-icon" href="https://github.com/{{ site.author.github}}"><i class="fa fa-github"></i></a>
-                    <a target="_blank" class="btn btn-social-icon" href="http://feeds.feedburner.com/{{ site.author.feedburner}}"><i class="fa fa-rss"></i></a>
-                </div>
+                {% include fragments/social-connect.html %}
             </div>
             <!-- /.col-lg-12 -->
         </div>
