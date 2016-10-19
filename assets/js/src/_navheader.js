@@ -36,7 +36,7 @@ tjs.navheader = (function(context, $) {
 
     _handlePageScroll = function() {
         $(document).on("scroll", function() {
-            if ($(document).scrollTop() > 200) {
+            if ($(document).scrollTop() > 100) {
                 $("#mainNav").addClass("shrink");
             } else {
                 $("#mainNav").removeClass("shrink");

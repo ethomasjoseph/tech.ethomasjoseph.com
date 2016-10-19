@@ -1,7 +1,7 @@
 
 .footer-row {
-    background: $color-primary-2;//$gray-light; //$color-primary-0;
-    color: $color-primary-6;
+    background: $color-secondary-1;//$gray-light; //$color-primary-0;
+    color: $color-primary-2;
     padding: 10px;
     margin-top: 15px;
     font-size:  $font-size-small;
@@ -11,7 +11,10 @@
         margin-bottom: 0px;
     }
     a {
-        color: lighten($gray-base, 75%);   
+        color: $color-secondary-3;
+        &:hover {
+            color: $color-primary-2;
+        }
     }
 }
 

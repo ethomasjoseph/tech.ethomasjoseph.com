@@ -16,13 +16,16 @@ $bootstrap-sass-asset-helper: false !default;
 
 // Brand Colors // Palette URL: http://paletton.com/#uid=10H0I0k2c8v003f00bThRh4nfmC */
 
-$color-primary-0: #44423F;	// Main Primary color */
-$color-primary-1: #1A1A1A;
-$color-primary-2: #5F5F5F;
-$color-primary-3: #88673C;
-$color-primary-4: #B47B31;
-$color-primary-5: #336699;
-$color-primary-6: #ffffff;
+$color-primary-1: #000000;
+$color-primary-2: #FFFFFF;
+$color-primary-3: #01B1C0;
+
+$color-secondary-1: #333333;
+$color-secondary-2: #666666;
+$color-secondary-3: #999999;
+$color-secondary-4: #CCCCCC;
+$color-secondary-5: #EEEEEE;
+
 
 
 //## Gray and brand colors for use across Bootstrap.
@@ -35,7 +38,7 @@ $gray-light:             lighten($gray-base, 46.7%) !default; // #777
 $gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
 
 //$brand-primary:         darken(#428bca, 6.5%) !default; // #337ab7
-$brand-primary:         $color-primary-0 !default;
+$brand-primary:         $color-primary-1 !default;
 $brand-success:         #5cb85c !default;
 //$brand-info:            #5bc0de !default;
 $brand-info:            #6699ff !default;
