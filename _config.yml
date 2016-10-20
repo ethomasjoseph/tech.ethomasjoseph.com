@@ -41,10 +41,6 @@ author :
 #
 production_url : https://ethomasjoseph.github.io/jekyll-bootstrap-gulp
 
-# baseurl is useful when you are hosting this as a project page on 
-# github where this would be the name of your project prefixed with a forward slash.
-baseurl: /jekyll-bootstrap-gulp
-
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
 #
 JB :
@@ -72,7 +68,7 @@ JB :
   #   - Only the following values are falsy: ["", null, false]
   #   - When setting BASE_PATH it must be a valid url.
   #     This means always setting the protocol (http|https) or prefixing with "/"
-  BASE_PATH : :baseurl
+  BASE_PATH : /jekyll-bootstrap-gulp
 
   # By default, the asset_path is automatically defined relative to BASE_PATH plus the enabled theme.
   # ex: [BASE_PATH]/assets/themes/[THEME-NAME]
