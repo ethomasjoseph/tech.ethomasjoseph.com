@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ page.title }} | {{site.title}}</title>
-{% include structure/headerlibs.html %}
-</head>
-<body>
-{% include structure/navheader.html %}
-{% include structure/maincontent.html %}
-{% include structure/footer.html %}
-{% include structure/footerlibs.html %}
-</body>
-</html>
+---
+theme :
+  name : etj-bootstrap
+---
+{% include JB/setup %}
+{% include themes/etj-bootstrap/default.html %}
