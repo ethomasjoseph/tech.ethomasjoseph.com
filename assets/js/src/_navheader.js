@@ -45,7 +45,7 @@ tjs.navheader = (function(context, $) {
     };
 
     _toggleSearchNCollapseNav = function() {
-        $('#tj-navbar-collapse').on('show.bs.collapse', function(e) {
+        $('#tj-navbar-collapse').on('show.bs.collapse', function() {
             var searchOpen = $($searchWrapper).is(":visible");
             if (searchOpen) {
                 // gracefully hide the search bar
