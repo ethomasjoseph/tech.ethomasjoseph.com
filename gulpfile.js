@@ -139,7 +139,8 @@ gulp.task('processjs', ['jshint', 'vendorjs'], function() {
 gulp.task('bootlint', function() {
     return gulp.src(config.app.siteRoot + '/**/*.html')
         .pipe(bootlint({
-            loglevel : "warning"
+            loglevel : "warning",
+            disabledIds : ['W005']
         }));
 });
 
