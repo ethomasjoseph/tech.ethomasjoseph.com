@@ -1,0 +1,45 @@
+---
+layout: post
+title: Saving a streaming video / presentation
+date: '2009-12-21T22:39:00.005+05:30'
+author: Thomas Joseph
+tags:
+- Linux
+- Tips
+modified_time: '2010-03-23T23:25:50.641+05:30'
+blogger_id: tag:blogger.com,1999:blog-5715425530181339158.post-3483692851486571088
+blogger_orig_url: http://tech.ethomasjoseph.com/2009/12/saving-streaming-video-presentation.html
+---
+
+Ever wondered to to save those streaming videos from Youtube, Metacafe, DailyMotion and so many others? I always wanted to save those streams, so that I could watch them again and again even without an Internet connection.<br />
+<br />
+I am a faithful Firefox user, and one of its wonderful plugin - <a href="http://www.downloadhelper.net/">DownloadHelper</a> has helped me for a long time to capture and save Youtube videos as flash video files on my local hard disk. That was quite helpful. But I always wanted to save those InfoQ videos as well, but unfortunately, DownloadHelper could not provide support for InfoQ (among others).<br />
+<br />
+It was only recently, that I used the conversion feature of DownloadHelper, in which I was converting one of those Youtube videos to be converted to wmv format. I noticed, that the conversion started only after the whole of the video stream was played on my browser. And I could readily guess, that the conversion must be using one of the libraries on my machine. So I looked at the process to find that it was using ffmpeg command to do this job. I also noticed, that actually every video was buffered to the /tmp on my Ubuntu. The filename I could see was something like FlashVOZFnS.<br />
+<br />
+Naturally, if a movie plays on your machine, it must be stored somewhere before being played on your browser. So now if you want to save your next streaming video, just identify where in your system does the flash player saves its movie temporarily before being played on your browser, and save that file to your videos folder, and possibly give it a .flv extension too.<br />
+<br />
+<i><b>Note</b>:&nbsp;</i>
+<ol>
+<li><i>As soon as you close the tab containing the video, the temporary file is discarded.</i></li>
+<li><i>Not all videos may be fully buffered before playing. Very long videos and webcasts may not be fully buffered.<br /></i></li>
+</ol>
+<br />
+<h3>Converting flash movies to other format (Linux)</h3>
+And now if you also want to convert it into other formats, its very easy in Linux with the following commands:<br />
+<b>FLV to WMV:&nbsp;</b><br />
+<code>ffmpeg -i /home/thomas/Desktop/video.flv -y -v 0 -acodec wmav1 -b 1000kbps -f asf -vcodec wmv1 /home/thomas/Desktop/video.wmv</code><br />
+<br />
+<b>FLV to MPG:</b><br />
+<code>ffmpeg -i /home/thomas/dwhelper/Desktop/video.flv -y -v 0 -f asf -vcodec mpeg4 /home/thomas/Desktop/video.mpg</code><br />
+<br />
+
+There are so many other options with this command, even up to video capturing your screen, but I am not very expert at those. So I leave it to you to experiment with those options.
+
+<hr>
+<h2>Update</h2>
+For any streaming video site, if you cannot see DownloadHelper to your help, make sure that you should have only this one tab containing any video to download. In other words, if you have multiple tabs with video contents, DownloadHelper seems to get confused, so you may not actually get a download link help.
+<br/><br/>
+---------------<br/>
+Edited and removed some content for legal reasons.<br/>
+---------------<br/><br/><div class="blogger-post-footer">- Thomas Joseph</div>

@@ -1,0 +1,76 @@
+---
+layout: post
+title: JavaScript is going Universal - Why should this matter you?
+date: '2015-10-26T09:07:00.001+05:30'
+author: Thomas Joseph
+tags: 
+modified_time: '2016-02-01T07:23:51.815+05:30'
+blogger_id: tag:blogger.com,1999:blog-5715425530181339158.post-3178596482159563650
+blogger_orig_url: http://tech.ethomasjoseph.com/2015/10/javascript-going-universal-why-matter-you.html
+---
+
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<div dir="ltr" style="text-align: left;" trbidi="on">
+If you program for the web, and think that you are a "<i>backend developer</i>", and JavaScript isn't my cup of tea, that is not true any more. You can close your eyes and wish away that JavaScript on Server side is a hype, but the fact is that JavaScript is invading the Server side space each passing day, and you "must" know JavaScript and JavaScript based rendering technologies, if you intend to create next generation web and mobile applications, or may be - just to be employed!</div>
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<br clear="none" /></div>
+<div dir="ltr" style="text-align: left;" trbidi="on">
+In the recently shared&nbsp;<a href="https://angularu.com/VideoSession/2015sf/angular-2-roadmap-update" target="_blank">roadmap of Angular 2</a>&nbsp;in&nbsp;<a href="https://angularu.com/" target="_blank">Angular U</a>, the Angular team presented the idea of&nbsp;<a href="http://www.infoq.com/news/2015/06/angular-2-react-native-roadmap" target="_blank">splitting Angular into two pieces</a>: core functionality and the&nbsp;<a href="https://youtu.be/aHGmj_fqPLE?t=784" target="_blank">renderer</a>. The concept of renderer in Angular could be used for server side rendering, or native rendering on iOS or Android.</div>
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<br clear="none" /></div>
+<div dir="ltr" style="text-align: left;" trbidi="on">
+This roadmap clearly brings Angular into the family of&nbsp;<a href="https://medium.com/@mjackson/universal-javascript-4761051b7ae9" target="_blank">Universal JavaScript</a>&nbsp;(also known as&nbsp;<a href="http://isomorphic.net/" target="_blank">Isomorphic JavaScript</a>) rendering technologies. The family of Universal JavaScript rendering technologies already include&nbsp;<a href="http://rendrjs.github.io/" target="_blank">Rendr</a>,&nbsp;<a href="https://facebook.github.io/flux/" target="_blank">Flux</a>,&nbsp;<a href="https://facebook.github.io/react/" target="_blank">React</a>,&nbsp;<a href="http://www.dustjs.com/" target="_blank">Dust</a>&nbsp;and&nbsp;<a href="http://lazojs.org/" target="_blank">LazoJS</a>&nbsp;- to name a few popular ones.&nbsp;<a href="https://medium.com/building-coursera/why-and-how-coursera-does-isomorphic-javascript-a-fast-and-snappy-quiz-5ba7bb9bf367" starget="_blank">Coursera</a>,&nbsp;<a href="http://nerds.airbnb.com/weve-launched-our-first-nodejs-app-to-product/" target="_blank">Airbnb</a>,&nbsp;<a href="https://engineering.linkedin.com/frontend/leaving-jsps-dust-moving-linkedin-dustjs-client-side-templates" target="_blank">LinkedIn</a>,&nbsp;<a href="http://www.infoq.com/news/2014/05/facebook-mvc-flux" target="_blank">Facebook</a>,&nbsp;<a href="http://techblog.netflix.com/2015/08/making-netflixcom-faster.html" target="_blank">NetFlix</a>,&nbsp;<a href="http://radar.oreilly.com/2014/10/isomorphic-javascript-with-lazojs.html" target="_blank">Walmart</a>&nbsp;are some of the high volume web applications that have already moved to Universal JavaScript. This move has already helped these websites to write applications that run universally - on server, browser and mobile apps - significantly reducing the development and&nbsp;maintenance&nbsp;effort across various channels, and more importantly - you just maintain one code and be flexible about intelligently choosing a logic execution and rendering to be on server or client side while pushing up the web applications&nbsp;<a href="http://techblog.netflix.com/2015/08/making-netflixcom-faster.html" target="_blank">to be much faster</a>!</div>
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<br clear="none" /></div>
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<h2 style="text-align: left;">
+JavaScript going Universal</h2>
+</div>
+<div dir="ltr" style="text-align: left;" trbidi="on">
+Despite the creation&nbsp;of&nbsp;JavaScript as a&nbsp;<a href="http://www.computer.org/csdl/mags/co/2012/02/mco2012020007.html" target="_blank">lightweight look-alike brother of Java</a>,&nbsp;JavaScript eventually became a key component in enabling the&nbsp;<a href="http://www.oreilly.com/pub/a/web2/archive/what-is-web-20.html">Web 2.0</a>&nbsp;evolution - especially through AJAX. JavaScript has moved much beyond its initial design goals, with more standardization with ECMA, optimizations done to every release of the JavaScript engines, JavaScript is all ready to rule the web (and more platforms).<br />
+<br />
+<table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody>
+<tr><td style="text-align: center;"><a href="http://static.ethomasjoseph.com/images/universal-js.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" src="http://static.ethomasjoseph.com/images/universal-js.png" height="166" width="320" /></a></td></tr>
+<tr><td class="tr-caption" style="text-align: center;"><b>Universal JavaScript</b><br /><a href="http://techblog.netflix.com/2015/08/making-netflixcom-faster.html" target="_blank">Image Credit - Netflix</a></td></tr>
+</tbody></table>
+<br /></div>
+<div dir="ltr" style="text-align: left;" trbidi="on">
+Today JavaScript is a&nbsp;<a href="https://en.wikipedia.org/wiki/JavaScript_engine" target="_blank">ubiquitous</a>&nbsp;runtime. &nbsp;JavaScript&nbsp;is everywhere - from Browser,&nbsp;&nbsp;<a href="https://en.wikipedia.org/wiki/Comparison_of_server-side_JavaScript_solutions" target="_blank">server side</a>,&nbsp;<a href="http://weworkweplay.com/play/raspberry-pi-nodejs/" target="_blank">embedded</a>&nbsp;device,&nbsp;<a href="http://openaphid.github.io/blog/2013/01/17/part-i-how-to-choose-a-javascript-engine-for-ios-and-android-apps/" target="_blank">mobile</a>&nbsp;and&nbsp;<a href="https://github.com/bebraw/jswiki/wiki/Game-Engines" target="_blank">gaming</a>.. The language's influence continues to grow on the server landscape via&nbsp;<a href="http://nodejs.org/" target="_blank">Node.js</a>, and runtimes&nbsp;such as&nbsp;<a href="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino">Rhino</a>&nbsp;and&nbsp;<a href="http://www.oracle.com/technetwork/articles/java/jf14-nashorn-2126515.html">Nashorn</a>&nbsp;for Java;&nbsp;<a href="https://jurassic.codeplex.com/">Jurassic</a>&nbsp;and&nbsp;<a href="http://v8dotnet.codeplex.com/" target="_blank">V8.NET</a>&nbsp;of .NET and projects such a&nbsp;<a href="http://eclipsesource.com/blogs/getting-started-with-j2v8/" target="_blank">J2V8</a>&nbsp; and&nbsp;<a href="http://facebook.github.io/react-native/" target="_blank">React</a>&nbsp;aiming to go even higher by targeting at Server side and mobile at the same time.</div>
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<br clear="none" /></div>
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<h3 style="text-align: left;">
+Digital Marketing, CMS, Ecommerce and Omnichannel</h3>
+</div>
+<div dir="ltr" style="text-align: left;" trbidi="on">
+If you are into Digital Marketing and Ecommerce, you cannot discount the fact that these worlds are increasingly growing omni channel. Engaging consumers across various channels require consistent experience. I am yet to gain some more insights into usage of JavaScript for native apps and work it out, but thinking your application architecture with universal JavaScript rendering itself lends the architecture to support mobile apps as well. Which means building omni-channel experiences would be much easier, with cleaner separation of concerns. More importantly many of the frameworks advocate - "learn once and write anywhere".</div>
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<br clear="none" /></div>
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<h3 style="text-align: left;">
+My&nbsp;Experiences&nbsp;with Universal JavaScript</h3>
+</div>
+<div dir="ltr" style="text-align: left;" trbidi="on">
+Working at SapientNitro, last year I had initiated a humble beginning to use Universal JavaScript rendering with <a href="http://handlebarsjs.com/" target="_blank">Handlebars</a> being introduced for Adobe AEM on the server side, which later paved its&nbsp;way&nbsp;into the IEA - <a href="http://www.businesswire.com/news/home/20150429006446/en/SapientNitro-Introduces-Groundbreaking-Architecture-Accelerate-Digital-Transformation" target="_blank">Integrated Experience Architecture</a>. With almost one year down the line one extremely positive outlook common with people who have worked on&nbsp;this concept on different projects &nbsp;was the "<i>separation of concerns</i>" and the inherent advantages of it.</div>
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<br clear="none" /></div>
+<div dir="ltr" style="text-align: left;" trbidi="on">
+However such a model of development could be a cause of concern at times when there is no mediator who would understand the "<i>backend</i>" and the "<i>frontend</i>" frameworks patterns well, and allow the two teams to gel together. Even without such a person, projects would still move on, but what is produced at the end may not be elegant or easy to understand.<br />
+<br />
+When I started out with this effort for a project for a leading financial consulting client, I learnt Handlebars, Grunt, and NodeJS to an extent that I wrote some Grunt tasks and Handlebar helpers on JavaScript. While this may look trivial to a seasoned JavaScript developer, for me it really helped a lot to understand both sides of the world and help the Interactive team and the AEM team with teething problems and integration glitches. This also&nbsp;helped us to create a better application "<i>together</i>". Looking back at the application, it is so seamless that ramping up a new member on the technology stack was really fast.</div>
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<h2 style="text-align: left;">
+JavaScript - much beyond just rendering</h2>
+</div>
+<div dir="ltr" style="text-align: left;" trbidi="on">
+JavaScript from a pure programming perspective itself is interesting - even when we leave out the goodies gained with universal rendering. JavaScript does not follow a purist programming paradigm, but it lends itself to almost any programming paradigm -&nbsp;<a href="https://medium.com/javascript-scene/the-two-pillars-of-javascript-ee6f3281e7f3">Object Oriented (with prototypal inheritance)</a>,&nbsp;<a href="https://medium.com/javascript-scene/the-two-pillars-of-javascript-pt-2-functional-programming-a63aa53a41a4#.eae6a57py">Functional</a>&nbsp;or or just even no paradigm! Lot of libraries exist to help you get your flavour of JavaScript. The evolution of JavaScript specification itself is going through interesting phase - especially with&nbsp;<a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm">ES6</a>&nbsp;advances on&nbsp;<a href="http://es6-features.org/">making the language better</a>. The&nbsp;<a href="http://www.typescriptlang.org/" target="_blank">TypeScript</a>&nbsp;from Microsoft makes JavaScript "<i>strongly typed</i>" and object oriented, while libraries like&nbsp;<strong><a href="http://underscorejs.org/" target="_blank">Underscore</a></strong>,&nbsp;<strong><a href="https://lodash.com/" target="_blank">Lo-Dash</a></strong>,&nbsp;<strong><a href="http://ramdajs.com/" target="_blank">Ramda</a></strong>&nbsp;make it a functional language. This further enables you to take the best of the different programming paradigms and write better programs. Add to that, the programs you&nbsp;write can run on Server or on the client. Isn't that interesting?</div>
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<br clear="none" /></div>
+<div dir="ltr" style="text-align: left;" trbidi="on">
+JavaScript based server side technologies - especially with NodeJS have&nbsp;advanced so well that you can use them to create full blown high-volume (I/O) web applications. Rendering page, connecting to database, crunching number or&nbsp;throwing out graphical charts, you name it - NodeJS applications do almost everything or even more than what you would expect from a traditional language or framework.<br />
+<br />
+I would recommend that more and more people on the "<i>backend</i>" come forward and learn the&nbsp;<i>front-end</i>&nbsp;frameworks, more importantly the JavaScript. This would help us be&nbsp;<a href="https://medium.com/javascript-scene/the-two-pillars-of-javascript-ee6f3281e7f3" target="_blank">better programmers</a>&nbsp;and architects and create better applications. For when you plan to give training to the developers, do also consider that the training can also include the interested backed developer. A "<i>frontend</i>" aware&nbsp;<i>backend&nbsp;</i>architect and developer can make such a difference that you will end up more time productively creating application than arguing that "<i>it works for me</i>", or "<i>please do whatever to make this work on your end</i>". And remember the <a href="http://blog.codinghorror.com/the-principle-of-least-power/" target="_blank">Atwoods Law</a>&nbsp;- "<i>Any application that can be written in JavaScript, will eventually be written in JavaScript.</i>" as a corollary to "<a href="http://www.w3.org/2001/tag/doc/leastPower.html" target="_blank">The Rule of Least Power</a>".<br />
+<br />
+The improvements on the framework is ongoing. You can't wait for the perfect framework to come to learn it. Improvements in JavaScript frameworks seems to be there each passing day. If you are not already into the groove of learning JavaScript, do so. Understand the ecosystem of JavaScript - especially with things like NodeJS, Grunt, Gulp and JavaScrpt templating. Try joining your local JavaScript meetup group, or give yourself some hands on training.Try out the functional and object oriented features of JavaScript. It will&nbsp;<a href="https://medium.com/javascript-scene/the-two-pillars-of-javascript-ee6f3281e7f3">make you a better and efficient programmers</a>&nbsp;and architects.</div>
+<br /></div>
+<div class="blogger-post-footer">- Thomas Joseph</div>

@@ -1,0 +1,60 @@
+---
+layout: post
+title: Submitting form to new window
+date: '2009-04-20T16:36:00.008+05:30'
+author: Thomas Joseph
+tags:
+- html
+- Tips
+modified_time: '2009-04-20T20:25:40.332+05:30'
+blogger_id: tag:blogger.com,1999:blog-5715425530181339158.post-4442704112452239477
+blogger_orig_url: http://tech.ethomasjoseph.com/2009/04/submiting-form-to-new-window.html
+---
+
+Today one of my co-workers was in an effort to submit a form that would bring up a new popup window. After some Googling, they found a solution.
+<br/>
+<pre class="brush:html">
+&lt;form name="datacollector" method="POST" action="new-url.do" target="_blank"&gt;
+&lt;!--
+     ...
+     other form elements
+     ...
+--&gt;
+&lt;/form&gt;
+</pre>
+
+Though this was getting them a new window, on Firefox it was appearing as a new tab. They soon found a setting in FF, that would bring it to a new window itself. However, they wanted a popup without any toolbars, menus etc.
+<br/><br/>
+They approached me. Thanks to one of my student days HTML/JavaScript tutorial. I was able to recollect it and give them a solution.
+<br/>
+<pre class="brush:html">
+&lt;script type="text/javascript"&gt;
+   function submitToNewWindow(frm) {
+       window.open('','popupWin','scrollbars=no,menubar=no,height=600,width=800,resizable=yes,toolbar=no,status=no');
+       frm.action= "new-url.do";
+       frm.target = "popupWin";
+       frm.submit();
+   }
+&lt;/script&gt;
+...
+...
+&lt;form name="datacollector" method="POST"&gt;
+&lt;!--
+     ...
+     other form elements
+     ...
+--&gt;
+      &lt;input type="button" value"Generate" onclick="javascript:submitToNewWindow(this.form)"/&gt;
+&lt;/form&gt;
+</pre>
+
+The idea is simple. Open a window with a name (here popupWin) using JavaScript that will have no scrollbar, menu, etc. Now in the form's target, supply this window name. This would bring up the form submission's result on the specified popup window. As far as the "_blank" is concerned, it is a HTML's default name for a new blank window.
+<br/><br/>
+
+This is a basic feature of HTML, that in the target, it accepts the name of a window. Note that if a window with that name does not exist, probably a new one will be created.
+<br/><br/>
+
+This solution was tested to be working in FF as well as IE.
+<br/><br/>
+
+Though this is a simple solution, I thought to put up here on my blog, as my co-workers were not able to get anything like this on Googling.<div class="blogger-post-footer">- Thomas Joseph</div>

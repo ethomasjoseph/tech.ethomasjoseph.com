@@ -1,0 +1,50 @@
+---
+layout: post
+title: VNC via SSH tunneling
+date: '2010-05-24T22:34:00.003+05:30'
+author: Thomas Joseph
+tags:
+- Linux
+- Tips
+modified_time: '2010-06-25T00:30:36.589+05:30'
+blogger_id: tag:blogger.com,1999:blog-5715425530181339158.post-6216279000115585705
+blogger_orig_url: http://tech.ethomasjoseph.com/2010/05/vnc-via-ssh-tunneling.html
+---
+
+<h2>5 simple steps to connect through VNC to office/work PC via SSH tunneling</h2>
+
+<h3>Situation:</h3>You have to connect to your office PC from home via VNC, but your office PC does not have a public IP. The only way to access your PC is through one of the access point machines provided by your office that can be reached through Internet.
+<br/><br/>
+
+<h3>Concept:</h3>VNC port is 5900. You can ssh tunnel to your office PC through your office access point, and connect to this tunnel to have VNC connection.
+<br/><br/>
+
+<h3>Assumption:</h3><strong>Office access point machine:</strong>&nbsp;<code>accesspts1.company.com</code><br/>
+<strong>Internal IP of your office machine:</strong>&nbsp;<code>192.168.1.31</code>
+<br/><br/>
+Also assume that your Office PC is switched on, and access point machine can access your office PC via the internal IP, and can access its ports as well.
+<br/><br/>
+
+<h3>Steps:</h3>
+<ol>
+<li>SSH to access point machine. Provide password when prompted<br/>
+<pre class="brush: bash">ssh username@accesspts1.company.com</pre>
+</li>
+
+<li>Now that you are on access point machine, ssh from there to your office PC. Again provide password when prompted.<br/>
+<pre class="brush: bash">ssh username@192.168.1.31</pre>
+</li>
+
+<li>On your office pc, start VNC server. Keep this terminal open.<br/>
+<pre class="brush: bash">x11vnc</pre>
+</li>
+
+<li>On another terminal, make open a tunnel to your office pc via the access point. Provide the password for your access point machine when prompted.<br/>
+<pre class="brush: bash">ssh -L 0.0.0.0:xxxx:192.168.1.31:5900 username@accesspts1.company.com</pre>
+</li>
+
+<li>Use an VNC viewer to connect to your Office PC via the tunnel. Use the following details:<br/>
+<blockquote><strong>Host:</strong> localhost<br/>
+<strong>Port:</strong> xxxx</blockquote>
+</li>
+</ol><div class="blogger-post-footer">- Thomas Joseph</div>

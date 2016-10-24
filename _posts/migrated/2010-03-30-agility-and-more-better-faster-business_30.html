@@ -1,0 +1,233 @@
+---
+layout: post
+title: Agility and more - better & faster business solutions with software - part-3
+date: '2010-03-30T20:45:00.002+05:30'
+author: Thomas Joseph
+tags:
+- agile
+- development
+- Project Management
+modified_time: '2010-08-23T00:18:25.786+05:30'
+thumbnail: http://lh4.ggpht.com/_yr1SU8wX2Ls/S6tHiORQrtI/AAAAAAAAAaA/_6ysni8HSCI/s72-c/cumilative-flow-diagram.jpg
+blogger_id: tag:blogger.com,1999:blog-5715425530181339158.post-1161141756467491596
+blogger_orig_url: http://tech.ethomasjoseph.com/2010/03/agility-and-more-better-faster-business_30.html
+---
+
+In my previous <a href="http://blog.openthoughtworks.com/2010/03/agility-and-more-better-faster-business_29.html">posts</a>, I discussed about practicing agile in real life, and why adapting the agile prescriptions is important. I discussed how the basic values of Agile manifesto narrates it all. This is my last post in this series, where I will explain about practices even beyond the direct agile prescriptions, that can help build faster and quality software with smiling teams.<br /><br />
+<h2>
+
+
+
+
+
+Some Agility and beyond</h2>While the software creation itself is creative, the process employed to create this software is also creative. Its not just practicing agile, that helps create good software, there are more things to it. The craftsman (developer) who creates software has also to be given importance (Did I mention that before?). Let me discuss few of these things that include things from the Agile practices such as XP and Scrum, as well as those that go beyond them.<br />
+<a name='more'></a>
+<h3>
+
+
+
+
+
+XP practices</h3>
+Focus on producing better software with <a href="http://martinfowler.com/articles/designDead.html">XP practices</a> such as <a href="http://martinfowler.com/articles/continuousIntegration.html">continuous integration</a>, with focus on unit tests, integration tests, and automated functional/UAT tests. I do not want to go to the depth of CI and unit tests, but it helps you be confident on regressions, as the software evolves. There are few other inherent advices that Martin Fowler has with the CI such as "<i>Keep the Build Fast</i>", "<i>Test in a Clone of the Production Environment</i>", "<i>Make it Easy for Anyone to Get the Latest Executable</i>" etc. I would highly recommend reading his article.<br />
+<br />
+Continuously try to clear up the <a href="http://www.martinfowler.com/bliki/TechnicalDebt.html">technical debts</a>. Did a Quick Fix? Create a ticket that says,.. fix it! Removing old legacy and unused code - it helps developers avoid straying away to look at an unused code, to fix problems, and faster induction of new joiners to team. Old code also makes large codebase, maintenance problems, larger build time and lots of confusion.<br />
+<br />
+Equally important is a focus on continuous <a href="http://en.wikipedia.org/wiki/Refactor">refactoring</a> for improved code readability reduced complexity and improved the maintainability and extensibility, for one or more of its benefits. This also helps clear our technical debts.<br />
+<br />
+Closely related to refactoring is the CI, that would help us to be sure that code refactoring is going fine. And to be confident in that a lots of test-cases needs to be in, that would ensure that there are no regressions. So develop a habit of writing unit test case for every bug or feature request. From my experience, going fully TDD (Test Driven Development) sounds like crazy as we develop all the tests-cases upfront, while having no test case or very scanty is also not a good practice. My experience is good to stay somewhere between - say at 50-85%, if we assume TDD to be 100% for writing test cases (use your mind and adapt!).<br />
+<br />
+The rule is simple. Start out lean, and consult Scrum and XP for places they are expert in. You need not take all their advice, but taking an advice is always good. Have something very technical - probably XP is good, other places Scrum is good, some other places - you get advice from both.<br />
+<h3>
+
+
+
+
+
+Know your team velocity</h3>
+It is very important to know your teams velocity. What is the team capacity to crunch out the story points (or whatever measure you keep) given to them? If the team velocity is not known, it release dates predicted may not be credible. There are various ways to measure your team velocity. For example, you could measure your team velocity by recording the story points finished for a period of time, or measure the amount of original estimated hours that the team could finish for a period of time.<br />
+<br />
+Talking of this, it is important to remember that the efficiency (sometimes called the <i>Focus Factor</i>) of the team is never 100%, since teams lose time doing unplanned items, doing context switches, helping other teams, checking their email, fixing network snag etc. With my experience, even when we had 9-6 working day, we normally counted it as 8 hours working day assuming the 1 hour lunch time as a normal organizational practice. However, when doing plannings, we used to calculate only 7 hours for a day, and hence allot only 6.5 - 7 hours of approximate work per person per day. That would be around 75-80% efficiency. However, you may like to bill your client w.r.t to all the time spent i.e 8 hours per day per person, which is perfectly fine! :)<br />
+<br />
+It may sound ridiculous to count 60% or 70% efficiency, but on real analysis of your team, it is normal to find such statistics. However, such a statistics is helpful to make realistic expectation from your team, and commit to reliable release dates.<br /><br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://lh4.ggpht.com/_yr1SU8wX2Ls/S6tHiORQrtI/AAAAAAAAAaA/_6ysni8HSCI/cumilative-flow-diagram.jpg" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img class="border" height="206" src="http://lh4.ggpht.com/_yr1SU8wX2Ls/S6tHiORQrtI/AAAAAAAAAaA/_6ysni8HSCI/cumilative-flow-diagram.jpg" width="320" /></a></div>
+<div style="text-align: center;">
+<span style="font-size: x-small;">Cumulative Flow diagram depicts the team velocity and the lead time required to finish items - helps to plan and minimise queues/waiting times.</span></div>
+<div style="text-align: center;">
+<span style="font-size: x-small;">(<i>Image reproduced from the <a href="http://www.infoq.com/minibooks/kanban-scrum-minibook">InfoQ minibook</a></i>)</span></div>
+<br />
+Most organizations want to reduce lead time, and do get things done faster. Unfortunately many try to do this by getting more people in or working overtime. Usually the most effective way to get stuff done faster is to smooth out the flow and limit work to capacity, not add more people or work harder. This type of diagram shows why, and thereby increases the likelihood that the team and management will collaborate effectively.<br />
+<br />
+The velocity does not vary much, however, you will have to regularly measure your team velocity, since velocity may increase with experience and expertise. However, this velocity may not change drastically over successive iterations, except for may be the first few iterations, when you are still stabilising over the agile practices, or when the team is new to a project. Release planning with these statistics can would help achieve timely and reliable releases and yet prevent team burnouts.<br />
+<h3>
+
+
+
+
+
+Clear goals and minimized wait times</h3>
+While focusing on individual productivity is important, it is also important to understand that they maintain their productivity when working as a team. One important factor that may hamper individual productivity when working as a team may be lack of clear goals on what to do next. Having a clear-cut road-map for not just for the day, for for the coming week itself may be good.<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://lh6.ggpht.com/_Vtp_0kLqub4/S4G-krr-kBI/AAAAAAAAr1w/mbva9VBFmBg/s1600/Photos031.jpg" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img class="border" src="http://lh6.ggpht.com/_Vtp_0kLqub4/S4G-krr-kBI/AAAAAAAAr1w/mbva9VBFmBg/s320/Photos031.jpg" /></a></div>
+<div style="text-align: center;">
+<span style="font-size: x-small;">Minimising wait times increases team throughput</span></div>
+<div style="text-align: center;">
+<i><span style="font-size: x-small;">(Image Courtesy: Vype's <a href="http://picasaweb.google.com/trianglepics">web album</a>) </span></i></div>
+<br />
+Another factor to be considered is to reduce dependence on each other. Plan out the iteration road-map so that there is minimal dependence of one on the other. See that a team-member is not waiting for the other to finish. There may be dependence, but then, the timing can be adjusted for it. In manufacturing, a good importance is given to reduce queues of intermediate products to reduce costs and increase throughput. For software development, there is no silver bullet for this, however providing an execution plan upfront can help in this, since if developer knows what needs to be done for tomorrow or next week and something that is independent of the current work, they can go ahead and start doing that task, so that individual productivity remains high. Well planned iteration backlog, daily stand-ups and scrum principles of removing impediments can help a lot to this.<br />
+<h3>
+
+
+
+
+
+Automate to Scale</h3>
+Try to bring automation to places wherever possible, since doing things manually doesn't scale, but machines can scale. That's how Google has achieved its excellence - by relying on algorithms and machines to scale rather than depending on humans. Automation can be brought at many places - CI, <a href="http://martinfowler.com/articles/continuousIntegration.html#AutomateTheBuild">intelligent builds</a> for every commits, sending error reports of CI and builds, and other automated testing, smoke testing, functional testing, and even <a href="http://martinfowler.com/articles/continuousIntegration.html#AutomateDeployment">deployments</a>. You will definitely avoid team burnouts!<br />
+<h3>
+
+
+
+
+
+Reduce complexity of the software</h3>
+Reducing complexity in your software would help a long way in more than one ways to create good software. Well known agile and modularity guru <a href="http://techdistrict.kirkk.com/about-kirk/">Kirk Knoernschild</a> explained in his keynote speech during the recent Jax London conference about reducing <a href="http://techdistrict.kirkk.com/2010/02/17/osgi-devcon-preview/">complexity in the software</a>. But there is no silver bullet to this, though modularising application is a definite direction to this.<br />
+<br />
+Kirk further explains the cost of complexity with the following <a href="http://users.jyu.fi/%7Ekoskinen/smcosts.htm">statistics</a>:<br />
+<ol>
+<li>The number of lines of code doubles every 7 years</li>
+<li>50% of development time is spent understanding code</li>
+<li>90% of software cost is maintenance and evolution</li>
+</ol>
+<br />
+Look at the #2! So if complexity is reduced, time spent in understanding code is reduced, thereby speeding up the overall development process. It is natural for the systems to grow complex over time, and as system evolves, unless efforts are put in to reduce this complexity.<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://lh5.ggpht.com/_R9dwm3RMQB8/ST08ZZv-e1I/AAAAAAAACAU/Lps5LwgU1HE/DSC05364%20%28small%29.jpg" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img class="border" height="240" src="http://lh5.ggpht.com/_R9dwm3RMQB8/ST08ZZv-e1I/AAAAAAAACAU/Lps5LwgU1HE/DSC05364%20%28small%29.jpg" width="320" /></a></div>
+<div style="text-align: center;">
+<i><span style="font-size: x-small;">"As a system evolves, its complexity increases unless work is done to 
+maintain or reduce it.</span></i><i><span style="font-size: x-small;"> "</span></i></div>
+<div style="text-align: center;">
+<i><span style="font-size: x-small;">(Image Courtesy: Flavio's <a href="http://picasaweb.google.com/byte964">web album</a>)</span></i></div>
+<br />
+There is more to reducing complexity in the code:<br />
+<ul>
+<li>Write less code</li>
+<li>Build modular applications</li>
+</ul>
+<h4>
+
+
+
+
+
+Write less code</h4>
+Avoid writing code whenever possible. The mantra is "less is more". Avoid writing code that is not your main line of business. Many teams spend lot of time and energy writing huge chunks of code and configuration for creating "<i>platforms</i>". Platforms are necessary, but try to evolve it from existing and stable code libraries and frameworks as something that has the least glue code, so that your framework can evolve over time. For example, you need to have great amount of integration points in your application, before jumping ahead to write message brokers, message bus, and all those fancy ESB kind of features, consider one of those ESB's and message brokers available out in the open source or its commercial variant. Will the original author be available all through the project life-cycle to explain the code and intent? Who will maintain it? Will the subsequent maintainers fully understand the code and its intent? When we use popular libraries and frameworks, there is more chance of finding developers who already have knowledge in it.<br />
+<br />
+When developing internal frameworks, its imperative that we design for even what requirements may come after 10 years, but the fact is that even after just 4-6 years, you will be hardly using the same system. Technology may have changed, your requirements may have widely changed and you end to design another <i>framework</i> to tackle those, or may have added a bunch of code to your existing system, and many of the capacities of your old <i>framework</i> goes unused.&nbsp; Still if you feel compelled to write some good amount of code for your framework, consider to market it separately or may be consider still better open sourcing it, so that you can early find co-developers, and build a community around that. Of course you can always commercially sell a software that you have open-sourced.<br />
+<h4>
+
+
+
+
+
+Build modular applications</h4>
+While writing modular applications is like a very common vocabulary that we use and have this intent when we design our applications, the reality is that <a href="http://njbartlett.name/blog/2010/03/17/osgi-and-how-it-got-that-way/">achieving "true" modularity is difficult</a>. Writing component based applications may provide some answer. For Java applications considering <a href="http://www.osgi.org/">OSGi</a> may be a <a href="http://blog.openthoughtworks.com/2008/07/osgi-add-dynamic-modularity-to-your.html">good choice</a>, that has been upheld by all the major application server vendors including IBM, Oracle and Sun. Recent JVM modularity to be introduced with Java 7 with <a href="http://openjdk.java.net/projects/jigsaw/">Jigsaw</a>, and the Oracle's more recent modularity efforts with <a href="http://qwylt.org/">Qwylt</a> are also interesting move towards this.<br />
+<h3>
+
+
+
+
+
+Focus on developer productivity - tools and techniques continuously</h3>
+To have a faster development and lesser team burnouts, one very important factor is to focus on how effective is the software craftsman in performing the very act of producing software. It is important to look out to improve developer productivity at every act of the software development - project layout, development mode and development cycle time, running tests, IDE integration, build tool effectiveness, conventions over configuration, code and architecture complexity.<br />
+<ul>
+<li><b>Unit tests and integration tests</b> should be easy to run in all possible ways - with regular builds, test builds, CI builds, and even in IDEs. This helps to frequetnly run the tests withing IDE, and be confident on the code from the very beginning of writing code. This helps a lot especially when refactoring code. Running tests should be equally easy and simple from the command line as well.</li>
+<li><b>Focus on conventions over configuration</b> principles on all possible aspect of software development (including build - eg Maven). Although choice of <a href="http://javamoods.blogspot.com/2010/02/maven-vs-ant-stop-battle.html">build tool is not a religion</a>, Maven is for one thing a great <a href="http://www.leshazlewood.com/?p=55">productivity improving</a>, since once you learn Maven, you know it even when you change your projects. Adopting such practices also brings down the learning curve, and even new joiners can get productive quickly. Applying this principle is not just for project layout, but the overall architecture and day-to-day coding as well. </li>
+<li><b>Watch out and remove impediments </b>required for a fast build-run cycles. Does the build require punching in a lot of key strokes? Also watch out with continual performance tuning. Does running of you app, almost freezes a 3GB memory system? - High time that you lookout for memory leaks, and do application startup tweaks. At production you may be countering this with a massive server configuration, but think if trimming the code would actually save you on team's energy as well as on your server infrastructure money as well! The builds should be easiliy launched from within and outside IDE. If you have multiple IDEs, make sure that all the IDEs work just fine (Maven plugins are available for almost all major IDEs, that can help you do this).</li>
+<li>Strive to find tools that would make things easy and remove/ automate / lessen hassles and repetitious tasks. Tools need not be always visible, eg.. scrum and kanban are tools for process improvement, while <a href="http://www.springsource.org/roo">Spring ROO</a> is also a tool that explicitly focuses on developer productivity. For instance promote <a href="http://jquery.com/">JQuery</a> or similar JavaScript library instead of fully hand crafted JavaScripts.</li>
+<li>Carefully choose and use <a href="http://en.wikipedia.org/wiki/Comparison_of_issue_tracking_systems">issue tracking systems</a>, and <a href="http://en.wikipedia.org/wiki/Comparison_of_wiki_software">wiki software</a> for your requirements:</li>
+<ul>
+<li>Choosing issue tracking systems with integration to your SCM. This would be good to track the commits for a particular issue, and ease code reviews.</li>
+<li>Use popular solutions:</li>
+<ul>
+<li>There is more probability of finding experienced users- less learning curve.</li>
+<li>You don't have to maintain that s/w which is not your mainline business.</li>
+</ul>
+<li>Consider Distributed SCM soultions like <a href="http://git-scm.com/%20">git</a> or <a href="http://mercurial.selenic.com/">mercurial</a> (Remember that this is just a tool, but it <a href="http://www.joelonsoftware.com/items/2010/03/17.html">helps manage changes</a> rather than versions, and so that branching and merging is simple.).</li>
+</ul>
+<li>Have easy read code-bases, easy run executables and easy obtainable project artifacts. Martin Fowler nicely describes this in <a href="http://martinfowler.com/articles/cotinuousIntegration.html#MaintainASingleSourceRepository">his article</a>, where I would like to highlight a <i>few</i> items:</li>
+<ul>
+<li>Have everything you need to do a build should be in there including: test scripts, properties files, database schema, install scripts, and third party libraries. Note: Maven eases this out, since you have a separate system (a maven repository) to maintain third party library, and you would just put the dependencies in your POM. The basic rule of thumb is that you should be able to walk up to the project with a virgin machine, do a checkout, and be able to fully build the system. Putting in IDE configuration file is also a good practice. However, do not store the build products itself in the SCM., this rather indicates a flaky build technique that cannot reliably recreate builds.</li>
+<li>Keep your use of branches to a minimum. In particular have a <i>mainline</i>: a single branch of the project currently under development. Pretty much everyone should work off this mainline most of the time. (Reasonable branches are bug fixes of prior production releases and temporary experiments.)</li>
+<li><a href="http://martinfowler.com/articles/continuousIntegration.html#MakeItEasyForAnyoneToGetTheLatestExecutable">Make it Easy for Anyone to Get the Latest Executable</a> - To help make this work, anyone involved with a software project should be able to get the latest executable and be able to run it: for demonstrations, exploratory testing, or just to see what changed this week. Doing this is pretty straightforward: make sure there's a well known place where people can find the latest executable. An internal Maven repository for example is a great place.</li>
+</ul>
+</ul>
+This discussion is not a comprehensive one describing each and every bottlenecks for faster development and increased productivity, but covers a lot of ground on it. You may share your own experiences and discussion points using the comments section in this blog.<br />
+<h3>
+
+
+
+
+
+Technology, R&amp;D and more</h3>
+<b>Encourage R&amp;D within your organization</b>.<br />
+Have a dedicated R&amp;D team if possible. Swap people in and out of the R&amp;D team. Encourage people in all teams to spend 20% time for doing something creative, or may be blog to start with. Consider putting people to R&amp;D as an alternative to benching, if you have such a practice. Encourage the R&amp;D team to publish their findings regularly through blogs and research papers. I will blog separately about the need for blogging. You can identify your gems working this way.<br />
+<br />
+The <i>80:20 principle</i> at Google is there to bring out wild ideas from developer minds to be experimented. Some of the great projects from Google including GMail, Google News etc have been the result of such researching and experimenting mentality of Googlers.<br />
+<br />
+<b>Technology is still important!</b><br />
+As emphasized in the <a href="http://blog.openthoughtworks.com/2009/03/domain-driven-design-in-10-minutes_31.html">DDD</a> principles - give good focus to the business at hand, but at the same time don't neglect technology. New technologies emerge to solve challenges that the existing ones cannot solve or because they are not efficient in doing that. This underlines the importance of using newer technology to solve our technical problems. Keep a balance however. It would not be recommend to use bleeding edge technology for production use, but encourage R&amp;D learning to use the new technology 'wisely' whenever needed and possible.<br />
+<br />
+<b>Community learning</b><br />
+Encourage your team to get involved with some good and popular open source project. This could also be a project something that you use yourself, or are planning to use in the near future. It has many benefits - when you officially can take part in OSS activities, you are getting better visibility to your company, apart from the learning that your team and company as a whole gains in the process. There are many ways in which the team can participate - participating in forums and discussions, filing bug reports (with test cases preferred), feature requests, subscribing to developer mailing lists if available,&nbsp; and if possible - commit code, help with release etc. The team also gets better knowledge of good standard practices for software development - issue/ticket management, coding, testing, continuous integration, release, deployment etc.<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://lh6.ggpht.com/_uNN_nz3Bwnk/Si584XEON9I/AAAAAAAADhQ/ZSSUVMAMQ44/IMG_6770.jpg" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img class="border" height="240" src="http://lh6.ggpht.com/_uNN_nz3Bwnk/Si584XEON9I/AAAAAAAADhQ/ZSSUVMAMQ44/IMG_6770.jpg" width="320" /></a></div>
+<div style="text-align: center;">
+<span style="font-size: x-small;">Community learning helps in many ways</span><i><span style="font-size: x-small;"><br /></span></i></div>
+<div style="text-align: center;">
+<i><span style="font-size: x-small;">(Image Courtesy: Horace Mann School's <a href="http://picasaweb.google.com/HoraceMannSchool">web album</a>)</span></i></div>
+<br />
+Continuous improvement: Always look out for improvement - talk to peers, get ideas from them (that's why retrospectives are there). Encourage team to spot improvements or pain points in your projects and processes and seek solutions from them. Your team will be forced to think creatively, and you may in-fact get something useful! Have an open minded discussions before incorporating such changes (or rejecting suggestions) to the project.<br />
+<h2>
+
+
+
+
+
+Solving your software development problems</h2>
+Agile is about iterations and incremental software development. This helps to build software that evolves over time with the customer requirements. Some prescriptions of agile practices such as from XP about CI, unit testing, helps to keep you confident in what you develop for each increment. <br />
+<br />
+That apart, looking at the discussions so far, and in the links there-in, we can deduce that its not just agility, there is more that helps you build better, and quality software. Agile practices with focus on developer productivity helps you release your software in a timely manner, yet maintaining the quality and budgets, while keeping your team happy and in high spirits.<br />
+<h2>
+
+
+
+
+
+How to Start...?</h2>
+A difficult part to start anything new, is to get started. Very true for agile too!. Read a lot on agile, Scrum, Kanban and XP. Start with basic minimals on being agile<br />
+<ul>
+<li>Start stand-ups - focusing on highly communicated and focused team</li>
+<li>Start iterations - smaller the better</li>
+<li>Incorporate to retrospect your processes, code and techniques</li>
+<li>Never feel complete with improving your process - it should be a continuous process.</li>
+</ul>
+Good start would be to start lean, and then add prescriptions that work for you! And,... don't forget to adapt!<br />
+<h2>
+
+
+
+
+Final Thoughts...</h2>
+This discussion, or few more blogs cannot cover everything related to software development. So much of literature is there around. Get inspired from those. Go ahead and start somewhere. You cannot start a perfect agile anyway! Over the time, you will improve with every iterations.
+
+
+
+<h3>Update...</h3>
+<ul>
+<li><a href="/2010/03/agility-and-more-better-faster-business.html">Part 1 of this blog series.</a></li>
+<li><a href="/2010/03/agility-and-more-better-faster-business_29.html">Part 2 of this blog series.</a></li>
+</ul><div class="blogger-post-footer">- Thomas Joseph</div>

@@ -1,0 +1,17 @@
+---
+layout: post
+title: Clearing the Terminal Junk
+date: '2008-12-10T12:39:00.011+05:30'
+author: Thomas Joseph
+tags:
+- Linux
+- Tips
+modified_time: '2009-04-16T20:13:04.899+05:30'
+blogger_id: tag:blogger.com,1999:blog-5715425530181339158.post-6868744197900640045
+blogger_orig_url: http://tech.ethomasjoseph.com/2008/12/clearing-terminal-junk.html
+---
+
+<p>Today as I was on my regular - code, build and test cycle, that suddenly there was a huge lump of error trace. It was so huge as to going to the exact origin was making my work take long. After every build thought I did a <code>clear</code>, it hardly helped me because, it actually "seems" to clear the screen, but actually holds the previous output, so even after the <code>clear</code>, scrolling up the screen will take us to the old terminal output (that I supposed to have cleared).</p><br/><p>
+I wondered how I could actually clear off the entire terminal output, because after a cycle is complete, it hardly makes any sense to hold the previous output on my terminal buffer, rather it makes us more confused. After some googling, I got the solution - for the Mac (its the  “⌘K” key combination). Wondering where I could get on this my Linux box, that I noticed the "Terminal -> Reset and Clear" option. Good it worked the way I wanted,.. but there was no shortcut key. Right away, I created one, and now I have the "Ctrk+K" combination clearing of the screen and its previous output buffer.</p><br/>
+<p>Try it!  Probably you will never use the <code>clear</code> again !!<a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="http://upload.wikimedia.org/wikipedia/commons/2/28/Smile-tpvgames.gif"><img style="margin: 0pt 10px 10px 0pt; float: none; cursor: pointer; width: 20px; height: 20px;" src="http://upload.wikimedia.org/wikipedia/commons/2/28/Smile-tpvgames.gif" alt="" border="0" /></a>
+</p><div class="blogger-post-footer">- Thomas Joseph</div>

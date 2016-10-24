@@ -1,0 +1,45 @@
+---
+layout: post
+title: Know your Geolocation right away with HTML5
+date: '2012-04-27T13:14:00.003+05:30'
+author: Thomas Joseph
+tags:
+- html5
+- web 2.0
+modified_time: '2012-04-28T09:07:24.714+05:30'
+blogger_id: tag:blogger.com,1999:blog-5715425530181339158.post-2785765045149232447
+blogger_orig_url: http://tech.ethomasjoseph.com/2012/04/know-your-geolocation-right-away-with.html
+---
+
+<div dir="ltr" style="text-align: left;" trbidi="on">
+Wondered how Google Maps tracks you current location? HTML5! Thats what enables most of the modern-day applications to track down your current location.<br />
+<br />
+You can do it too right away!<br />
+<br />
+Open up your JavaScript/Firebug console. You can hit F12 to work on most of the browsers. And paste the following JavaScript code snippet.<br />
+<br />
+<pre class="brush:javascript">navigator.geolocation.getCurrentPosition(function(position){console.log(position);});
+</pre>
+<br />
+or<br />
+<br />
+<pre class="brush:javascript">navigator.geolocation.getCurrentPosition(function(position){alert(position.coords.longitude + " / " +&nbsp;position.coords.latitude);});</pre>
+<br />
+Did you see a confirmation asked on your browser? Allow it! Thats it! It was so simple. You can now see your location in terms of longitude and latitude on the console. You can use this data along with Google Maps API to spot your location on a map.<br />
+<br />
+<a name='more'></a><br />
+<br />
+<h2 style="text-align: left;">
+  Earlier and now...</h2>
+Earlier, before HTML5, the user's IP was determined and so was the location tracked. Some sites provided friendly ways to do this such as&nbsp;<a href="http://www.geoplugin.net/">http://www.geoplugin.net</a>. With HTML5, if your browser supports HTML5, this should work whether on a mobile, tablet or on a conventional desktop. Although this way of location tracking won't show up much difference to earlier approach on a desktop, it would sure show a difference if you use it on your mobile with GPS enabled.<br />
+<br />
+<h2 style="text-align: left;">
+  More to read...</h2>
+The API that was used above is one of the many available for location tracking. You can read more about HTML5 location tracking at the following links:<br />
+<br />
+<ul style="text-align: left;">
+<li><a href="http://www.w3.org/TR/geolocation-API/">http://www.w3.org/TR/geolocation-API/</a> </li>
+<li><a href="http://html5demos.com/geo">http://html5demos.com/geo</a>&nbsp;(DEMO)</li>
+<li><a href="http://mobile.tutsplus.com/tutorials/mobile-web-apps/html5-geolocation/">http://mobile.tutsplus.com/tutorials/mobile-web-apps/html5-geolocation/</a></li>
+</ul>
+</div><div class="blogger-post-footer">- Thomas Joseph</div>

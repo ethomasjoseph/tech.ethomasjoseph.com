@@ -1,0 +1,87 @@
+---
+layout: post
+title: Solving eclipse error with SVN 1.6 (loading JavaHL library)
+date: '2010-07-03T12:18:00.003+05:30'
+author: Thomas Joseph
+tags:
+- Java
+- Eclipse
+- Tips
+modified_time: '2010-07-03T12:22:42.328+05:30'
+blogger_id: tag:blogger.com,1999:blog-5715425530181339158.post-8167879025231205486
+blogger_orig_url: http://tech.ethomasjoseph.com/2010/07/solving-eclipse-errors-with-svn-1-6.html
+---
+
+If you are using Eclipse and SVN (Subversion), there are high chances that you are using the Eclipse plugin - <a href="http://subclipse.tigris.org">Subclipse</a>. And if you recently upgraded to subclipse 1.6, there is a good chance that you have encountered the error or loading JavaHL Library, that says something like this:
+<br/>
+
+<blockquote><strong>Problem:</strong>
+<pre class="brush: plain">
+Failed to load JavaHL Library.
+These are the errors that were encountered:
+no libsvnjavahl-1 in java.library.path
+no svnjavahl-1 in java.library.path
+no svnjavahl in java.library.path
+java.library.path = /opt/jdk/64/jdk1.6.0_20/jre/lib/amd64/server:/opt/jdk/64/jdk1.6.0_20/jre/lib/amd64:/opt/jdk/64/jdk1.6.0_20/jre/../lib/amd64:/usr/lib64/xulrunner-addons:/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
+</pre></blockquote>
+
+<br/>
+If this is the case, then few tips to get this working. As always, I will suggest solutions with the least number of steps, and all simple.
+<ol>
+<li>When installing/updating subclipse 1.6, use the update site - http://subclipse.tigris.org/update_1.6.x/ from within Eclipse.</li>
+<li>The installation screen shows the features. Make sure that all features marked "required" are selected for installation. (You will anyway be not allowed to proceed otherwise).</li>
+</ol>
+<br/>
+If it still does not work, it is highly possible that the Java native libraries required for the SVN to work together with Java (thats Java HL) is not available to the Java. Either not installed or just that Java is not able to find it.
+<br/><br/>
+
+<h3>1. Install Java HL</h3>
+You can refer to <a href="http://subclipse.tigris.org/wiki/JavaHL#head-7498d204a5be83e0e97d196ba75fc797d5f0c822">here</a> for a generic discussion on this topic, especially for Windows and Mac OS. For Linux, I have simpler solutions :).
+<br/>
+Install through your package manager, a package named <code>libsvn-java</code>, that contains the JavaHL. You must make sure that it is for SVN 1.6.
+<br/>
+For Ubuntu or other Debian based Linux, the command should be handy:
+<pre class="brush: bash">
+sudo  apt-get install libsvn-java
+</pre>
+
+
+<br/>
+However, it is possible that the installation is requiring you to install the whole Java binaries itself, although you already have one (an old version, or a manually configured Java for example), and you are not willing to install the Java packages. In that case, just go to your package maintainer's site, and manually download the package, and unzip it to your system  (yes, you will need root permissions), so that the dependencies are not installed.
+<br/><br/>
+If you had installations fine, without any hacks, restarting Eclipse should get your Subclipse working. If not, follow what is below.
+
+<br/>
+<h3>2. Make Eclipse runtime aware of the new JavaHL binaries.</h3>.
+There are two options for doing this:
+<ol>
+<li>Tell JVM/Eclipse about the JavaHL libraries when starting JVM with the system property, that points to the java library path where the JavaHL binaries are installed. eg:
+<pre class="brush: plain">
+   -Djava.library.path=/usr/lib/jni
+</pre>
+This option can be specified in config.ini as well.
+</li>
+<li>
+Put the JavaHL binaries in paths that JVM normally searches for native libraries. Normally these paths are listed, in the error above. Above the paths are listed as:
+<pre class="brush: plain">
+java.library.path = /opt/jdk/64/jdk1.6.0_20/jre/lib/amd64/server:/opt/jdk/64/jdk1.6.0_20/jre/lib/amd64:/opt/jdk/64/jdk1.6.0_20/jre/../lib/amd64:/usr/lib64/xulrunner-addons:/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
+</pre>
+</li>
+</ol>
+
+I went for the second option, since that one seemed most non-intrusive and easy to me. Let me show it how I did that:
+<ol>
+<li>Choose any of the listed Java library paths. In a terminal, move into that directory:</li>
+<pre class="brush: bash">cd /usr/lib/jvm/java-6-sun/jre/lib/i386</pre>
+<li>
+Make softlinks to the JavaHL libraries.
+<pre class="brush: bash">
+sudo ln -s /usr/lib/jni/libsvnjavahl-1.so libsvnjavahl-1.so
+sudo ln -s /usr/lib/jni/libsvnjavahl-1.so.0 libsvnjavahl-1.so.0
+sudo ln -s /usr/lib/jni/libsvnjavahl-1.so.0.0.0 libsvnjavahl-1.so.0.0.0
+</pre>
+</li>
+</ol>
+
+<br/>
+Now restarting Eclipse should get everything working fine. If it does not, review your steps, and also read in full length about JavaHL from <a href="http://subclipse.tigris.org/wiki/JavaHL">http://subclipse.tigris.org/wiki/JavaHL</a>, and try the steps again.<div class="blogger-post-footer">- Thomas Joseph</div>

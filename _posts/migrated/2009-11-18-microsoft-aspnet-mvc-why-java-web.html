@@ -1,0 +1,67 @@
+---
+layout: post
+title: Microsoft ASP.NET MVC - Why Java web developers should reconsider action frameworks?
+date: '2009-11-18T11:23:00.005+05:30'
+author: Thomas Joseph
+tags:
+- polyglot
+- web frameworks
+modified_time: '2015-10-19T05:28:27.194+05:30'
+blogger_id: tag:blogger.com,1999:blog-5715425530181339158.post-8543380609892044944
+blogger_orig_url: http://tech.ethomasjoseph.com/2009/11/microsoft-aspnet-mvc-why-java-web.html
+---
+
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<blockquote>
+Microsoft's <a href="http://en.wikipedia.org/wiki/ASP.NET_MVC_Framework">ASP.NET MVC</a> is a paradigm shift in web development from its pioneering component based development offered with <a href="http://msdn.microsoft.com/en-us/library/ms973868.aspx">WebForms</a> to action based web framework. This was a natural evolution due to the pains in the component based web development. While the Java community started out with the action based frameworks, the shift of the community seems to be on a higher side for the component based web development led by <a href="http://java.sun.com/javaee/javaserverfaces/">JavaServer Faces (JSF)</a> in the recent years. The shift of Microsoft towards action frameworks should make the Java web developer's heads again turn towards action frameworks and reconsider their choice towards the paradigm for web development. Perhaps a thinking about polyglot web development is needed, rather than abandoning action frameworks.</blockquote>
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<img border="0" src="http://static.ethomasjoseph.com/images/webframeworks.png" height="207" width="320" /></div>
+<br />
+<a name='more'></a><h3>
+     A stroll with component web framework</h3>
+Like many other Java web developers, I also had a chance to use JSF for my web development, after using <a href="http://struts.apache.org/1.x/">Struts classic</a> for almost two years. Everything was so exciting as we started with it. There was en enthusiasm to go on with Rapid Application Development (RAD) with drag and drop, the event oriented programming ushered by the component framework. The wide variety of JSF extensions, and widgets that would help us develop rich web applications, added to our excitement. The pain in tinkering with JavaScript and browser quirks would be zeroed.<br />
+<br />
+As we started out, there were some initial hiccups because of the change in the way we think about developing web applications. Now we are less worried about the basics of HTTP, requests, responses, request parameters and its conversion between class properties. We were excited about the wide variety of rich controls that a JSF extension such as Richfaces or ICEFaces could offer.<br />
+<br />
+Now about one year down the line as we started out writing more and more code, I felt at certain places, that I was missing action framework. It was not easy to bookmark pages - the URLs where least indicative about it, they are not search engine friendly. There are a whole lot of&nbsp;<a href="http://www.theserverside.com/news/thread.tss?thread_id=45519#233235">problems indicated by people</a> at various&nbsp;<a href="http://raibledesigns.com/rd/entry/re_usability_problems_in_jsf">blogs</a> and articles. The flow control with JSF was very flaky, unless I used <a href="http://www.springsource.org/webflow">Spring Webflow</a> to <a href="http://www.javaworld.com/javaworld/jw-11-2008/jw-11-intro-to-swf2.html">conquer my workflow</a> requirements. I could no longer easily play with small tweaks that action frameworks would have always allowed me to. I had lost the flexibility to the framework that was primarily made to hide the details about HTTP. Although there are ways to get around with the limitations, some workarounds are very ugly and the bottomline was - <a href="http://java.sys-con.com/node/43952">the simplicity had gone</a>. There was a higher learning curve too.<br />
+<br />
+While the problems faced with JSF may not be true for every component frameworks, the higher adoption rate for JSF is causing me to rethink on it, before I could invest more efforts on it.<br />
+<br />
+<h3>
+   Looking back at action web framework</h3>
+While the flexibility problems with JSF were still haunting, I heard about ASP.NET MVC from Microsoft - an action framework for .NET web development. I was looking back to action frameworks now. When I last used Struts classic in 2007,&nbsp;&nbsp;<a href="http://struts.apache.org/2.x/">Struts 2</a> had already hit the popularity headlines. But I did not had a chance to try that out, because of the obvious migration problems associated with a large project. With a mixed response to this, I started looking into Struts 2.<br />
+<br />
+While I am still learning Struts 2, I could realize that the framework is much more easier that its predecessor. It could hide away the HTTP details, but at the same time, it was easy for anyone to play with the intricacies of HTTP if one would like to. Its damn simple, with least learning curve, probably because action framework are the right fit to thinking on how web works. Lead architect of Microsoft - <a href="http://weblogs.asp.net/scottgu/archive/2009/04/01/asp-net-mvc-1-0.aspx">Scott Guthrie has quoted</a> on the action framework - "<i>It enables full control over HTML markup and URL structure, and facilitates unit testing and a test driven development workflow</i>" explains this.<br />
+<br />
+I wondered why even after three years of Struts 2 (and so many other action frameworks for Java), JSF adoption rate was going high when compared to Struts or any other action frameworks. The job boards posted more requirements for JSF jobs when compared to action frameworks like Struts. This made me look into some depth why Microsoft adopted action frameworks, who were the people who introduced component based programming to the web development with ASP. ASP was later evolved with .NET as it became ASP.NET. <br />
+<br />
+<h3>
+   A look into why component web frameworks emerged</h3>
+The significant roots of component based frameworks could be traced back to Microsoft coming out with ASP way back in mid-nineties to late nineties, as web started growing out from serving static HTML pages to creating dynamic web applications using the same HTTP protocol and HTML markups. The programming style in ASP although made some exposure to HTML, HTTP, GET and POST, primarily it was intended for VB6 desktop developers who would like to move on to web development. ASP.NET 1.0 continued this pace within the .NET framework. It was easy for seasoned VB6 developers to drag and drop components from the toolbox to author a page, with the least concern that it was a programming for web. VB6ers felt at home as they had to deal with post-backs and click handlers.<br />
+<br />
+The same period in the Java space was taking a different stride. The Servlet specification was the first attempt from the Java community to deal with dynamic web pages. The pain of writing HTML markup in Java code paved the way to emergence of JSP. This was relaxing to an extent, but there were no formal web frameworks. This made the emergence of Struts by around mid of 2000, that brought in the concept of MVC to the web development. It quickly became the most popular framework in the Java community. Sun finally came out with a web-framework specification in <a href="http://www.jsfcentral.com/editorial/editorial_1.html">2004 as JSF1.0</a>. JSF was largely similar to ASP/ASP.NET model programming and aimed at a&nbsp;<a href="http://www.developer.com/design/article.php/3572721/JavaServer-Faces-and-ASPNET---A-Side-by-Side-Look.htm">competition with it</a>. It is component based and even driven, that allowed rapid application developments that aimed the IDEs to give away drag-and-drop UI development combined with post-backs and even handlers in backing beans.<br />
+<br />
+<h3>
+   Why Microsoft is making a transition to action framework?</h3>
+Definitely Microsoft is more experienced in component based development. The developers have always missed an inherent MVC with WebForms. They have also missed the Test Driven Development (TDD) robustness in their applications. The separation of concerns provide extensibility and testability, that was missing in WebForms. Action framework provided by the ASP.NET MVC has been now recognized as a natural fit to developing web applications. The power, simplicity and flexibility of action frameworks was witnessed earlier with <a href="http://www.castleproject.org/monorail/index.html">MonoRail</a> by the .NET developers. The emergence of ASP.NET MVC is the result of learning from the past and the recognition of needs by the developers for a simple, yet powerful action framework to the mainstream .NET developers. Now ASP.NET developers could enjoy TDD approach to web development in addition to the simplicity and extensibility provided by the action framework.<br />
+<br />
+While the ASP.NET MVC framework was released just this March 2009, the active community around it has already found need for further improvements with an effort <a href="http://aspnet.codeplex.com/wikipage?title=Road%20Map">already into the development of its 2.0 release</a>. I do not rule out the reasons to attract non .NET web developers into the Microsoft platform as one reason for Microsoft to come out with this plan. A notable point here is the recommendation by Microsoft to move the WebForms to the new action framework. It is already predicted by some to be the norm for ASP.NET development by 2011. ASP.NET MVC will be shipped with Visual Studio 2010 underlines its importance to Microsoft.<br />
+<br />
+<h3>
+   Learning from each other</h3>
+Though late, Microsoft community has identified the importance of action framework for web development. Now when the Microsoft community is moving from component based to action framework based web development, the Java community really needs to re-evaluate its use of JSF for web development. Definitely, each paradigm of web development has its own importance, and probably can and should co-exist. But the larger Java community should not forget the learning of Microsoft community with web development framework.<br />
+<br />
+On the other hand, Microsoft community can benefit from the learning in Java community with action frameworks such as Struts 2. ASP.NET MVC has&nbsp;<a href="http://weblogs.asp.net/scottgu/archive/2009/04/01/asp-net-mvc-1-0.aspx">released under open source license</a> (<a href="http://www.opensource.org/licenses/ms-pl.html">MS-PL</a>) and working with the community to develop it further, which is a welcome step. It also allows the community to contribute to the growth and higher adoption of the framework.<br />
+<br />
+<b>Rapid Application Development</b><br />
+As far as rapid application development is concerned, Rails principles such as convention over configuration, intelligent defaults, and automatic code generation with templates could be employed. ASP.NET MVC already includes tooling that uses code generation to quickly create a view based on a model object. Ruby on Rails is already a good example that can be followed. Struts 2 is no doubt, a great framework for Java web development with a flexible, simple and pluggable framework with convention over configuration and intelligent defaults that can be emulated by even the Microsoft community in developing its action framework. A good deal already seems to be into the ASP.NET MVC 1.0 inspired from Struts 2.<br />
+<br />
+RAD can also be supported with plugin architecture as in Struts 2 that already offers plugins for&nbsp;<a href="http://code.google.com/webtoolkit/">GWT</a>,&nbsp;<a href="http://jquery.com/">jQuery</a> and&nbsp;<a href="http://www.dojotoolkit.org/">dojo</a> among others. More and more code generators like the&nbsp;<a href="http://www.springsource.org/roo">Spring ROO</a> are also a welcome step. Perhaps we will witness a plethora of such code generators with Maven3 gets ready to be into the wild, that will support such extensions including the IDE integrations.<br />
+<br />
+WYSIWYG editors for component framework can definitely will have its own role to play. We can see such&nbsp;<a href="http://www.instantiations.com/gwtdesigner/">editors for GWT</a> and JSF as well. Better WYSIWYG editors for action frameworks are needed for RAD.<br />
+<br />
+<h3>
+   Concluding thoughts</h3>
+The web frameworks do not end with JSF and Struts or with ASP.NET WebForms or ASP.NET MVC. There are notable advantages with frameworks like GWT and <a href="http://echo.nextapp.com/site/">Echo</a> that take a different stride to web development. Its time we need to re-look into our web development and see if we are beating every nail with the same hammer. Today as we speak of <a href="http://blogs.computerworld.com/15032/polyglot_programming_development_in_multiple_languages">polyglot programming</a> and <a href="http://benscofield.com/2009/09/polyglot-persistence/">polyglot persistence</a>, probably a thinking about polyglot web frameworks is also needed.</div>
+<div class="blogger-post-footer">- Thomas Joseph</div>

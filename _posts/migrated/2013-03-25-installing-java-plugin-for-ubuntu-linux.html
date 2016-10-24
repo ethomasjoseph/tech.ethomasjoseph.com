@@ -1,0 +1,34 @@
+---
+layout: post
+title: Installing Java Plugin for Ubuntu / Linux for multiple users
+date: '2013-03-25T21:00:00.000+05:30'
+author: Thomas Joseph
+tags:
+- Java
+- Linux
+- Tips
+modified_time: '2013-03-25T21:00:54.298+05:30'
+thumbnail: http://4.bp.blogspot.com/-xlwDwIDiZi8/UVBtIu5gCFI/AAAAAAAACAs/xgGXpyVQ39g/s72-c/How+do+I+test+whether+Java+is+working+on+my+computer%3f+-+Chromium_001.png
+blogger_id: tag:blogger.com,1999:blog-5715425530181339158.post-2258246597497350671
+blogger_orig_url: http://tech.ethomasjoseph.com/2013/03/installing-java-plugin-for-ubuntu-linux.html
+---
+
+<div dir="ltr" style="text-align: left;" trbidi="on">
+If you are a&nbsp;Linux&nbsp;user like me and have encountered websites that require applet, you may be ok installing the default Java that comes with your distro, and most of the time you may be good to go with it.<br />
+<br />
+But at times you may specifically want to install Sun Java on your system. Since Oracle has licensing restrictions, distros like Ubuntu do not have Sun Java in their repositories, and you will have to resort to some <i>"longer"</i> ways of installing Java as explained in <a href="https://help.ubuntu.com/community/Java" target="_blank">here</a> for Ubuntu.<br />
+<br />
+But even by following the <i>"longer"</i> ways, you may be still annoyed when your browser says that Java plugin is missing (it happened for me for my Ubuntu 12.04). Or else, even when it may be working for you, it may not be working for other users on your computer, and you may have to create soft links to Java plugin executable in <tt>.mozilla/plugins</tt> directory of every user's home.<br />
+<br />
+Assuming that you have already installed Java flavor of your choice, and want to enable Java plugin for your browser for every user of your computer, just create a soft link to the Java plugin executable under <tt>/usr/lib/mozilla/plugins/</tt> directory.<br />
+<br />
+<pre class="brush: bash">cd /usr/lib/mozilla/plugins
+
+ln -s /usr/lib/jvm/jdk1.7.0_17/jre/lib/amd64/libnpjp2.so
+</pre>
+<br />
+...and you are good to go. Now you can refresh your browser containing the applet to see that it is working, or you can test it at the Java's official test page <a href="http://www.java.com/en/download/testjava.jsp" target="_blank">here</a>. For me here is how my browser looked after I configured Java as above:<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://4.bp.blogspot.com/-xlwDwIDiZi8/UVBtIu5gCFI/AAAAAAAACAs/xgGXpyVQ39g/s1600/How+do+I+test+whether+Java+is+working+on+my+computer%3f+-+Chromium_001.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="286" src="http://4.bp.blogspot.com/-xlwDwIDiZi8/UVBtIu5gCFI/AAAAAAAACAs/xgGXpyVQ39g/s400/How+do+I+test+whether+Java+is+working+on+my+computer%3f+-+Chromium_001.png" width="400" /></a></div>
+<br /></div>
+<div class="blogger-post-footer">- Thomas Joseph</div>

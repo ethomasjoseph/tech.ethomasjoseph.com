@@ -1,0 +1,36 @@
+---
+layout: post
+title: Writing method with dynamic return type without type casting
+date: '2013-07-13T13:42:00.000+05:30'
+author: Thomas Joseph
+tags:
+- Java
+- OSGi
+- Tips
+modified_time: '2014-06-30T09:28:07.408+05:30'
+blogger_id: tag:blogger.com,1999:blog-5715425530181339158.post-5587790323262857828
+blogger_orig_url: http://tech.ethomasjoseph.com/2013/07/writing-method-with-dynamic-return-type.html
+---
+
+<div dir="ltr" style="text-align: left;" trbidi="on">I have often come across this requirement across multiple projects, where we need to write a method, which can potentially return object of any class, and still you would not like to do a typecasting. Something like this:<br />
+<pre class="brush: java">MyClass myClass = getDynamicClass(MyClass.class);
+</pre><br />
+Instead of :<br />
+<pre class="brush: java">MyClass myClass = (MyClass) getDynamicClass(MyClass.class);
+</pre><br />
+Common example of such use case is where you would do some lookup of a dynamic service (as in OSGi) and return the object found. However, with Java 5 and above this is easy. So, if your earlier code was:<br />
+<pre class="brush: java">protected Object getDynamicClass(Class interfaceClass) {
+    Object obj = null;
+    // code to create / lookup the dynamic object
+    return obj;
+}
+</pre>This code can be converted as follows:<br />
+<pre class="brush: java">protected &lt;ReturnType&gt; ReturnType getDynamicClass(Class&lt;ReturnType&gt; interfaceClass) {
+    Object obj = null;
+    // code to create / lookup the dynamic object
+    if (interfaceClass.isInstance(obj)) {
+        return interfaceClass.cast(obj);
+    }
+    return null;
+}
+</pre>This is very obvious code, but thought that sharing this would be useful. Enjoy!</div><div class="blogger-post-footer">- Thomas Joseph</div>

@@ -1,0 +1,338 @@
+---
+layout: post
+title: Cross Platform Java Daemon
+date: '2009-04-16T20:19:00.006+05:30'
+author: Thomas Joseph
+tags:
+- Java
+- Daemon
+- Tips
+modified_time: '2009-04-16T21:43:59.967+05:30'
+blogger_id: tag:blogger.com,1999:blog-5715425530181339158.post-2335698434042862624
+blogger_orig_url: http://tech.ethomasjoseph.com/2009/04/cross-platform-java-daemon.html
+---
+
+Running a Java application (non graphical) would normally need a command line for it. This seems OK if we are developing small applications, but today we see enterprise applications that often needs to go and work as a server, that need to start up and go down with the OS. For such applications, the requirement of avoiding a command line gains importance. Such applications are often referred to as Daemons in the *nix space, and services in the Windows space.
+<br/><br/>
+
+<h2>Solutions?</h2>
+Wondering that you have seen so many Java applications that can work without command line? Its not that Java applications without a command line is not possible. Though Java is popular for being platform independent, doing this "daemonising" task has not been of that nature. Many of the Java based server products have been doing that in various different ways, and in most cases using native code. And if your look around for Java Daemon, or Java as Windows Service, you will find separate and widely different solutions.
+<br/><br/>
+
+And there are solutions specific to platforms, for instance - the nohup and screen command in linux can get you an application without terminal. For the nohup, though your solution to stop the application, is probably to kill it.
+<br/><br/>
+
+Recently I had a similar need, I looked around and could find a bunch of solutions:
+<ol>
+<li><a href="http://commons.apache.org/daemon/">Commons Daemon (C, Java)</a></li>
+<li><a href="http://sourceforge.net/projects/wrapper">Java Service Wrapper (C and Java)</a></li>
+<li><a href="http://sourceforge.net/projects/yajsw">Yet Another Java Service Wrapper (pure Java)</a></li>
+<li><a href="http://akuma.dev.java.net/">Akuma</a></li>
+</ol>
+
+<br/><br/>
+<h2>Do it yourself!</h2>
+Going through even the surface of these will give you an idea of how widely the implementations vary. These are solutions that help you lift your existing application, if you yourself do not want to provide any implementation of getting daemonised. But if you are happy to learn on this concept, or want to get your code provide the "daemon" power natively with simplicity and lightweight effort, read on...
+<br/><br/>
+
+
+(<b>Note:</b> I would recommend a reading of the Commons Daemon. Also note that the code below is just ideas and concepts, you may need to evolve it further to make it production ready.)
+
+<br/><br/>
+
+<h3>The concepts</h3>
+Any Java application needs an entry point for it to start working. This is the public static void main(String[]) method. And the common way to do this invocation is to instruct the JVM and show it the class that contains this method block, with the java command. This command will start the JVM which starts the Java program starting with the main method. The command line is blocked until the Java program completes. This is a valid scenario for small and interactive applications, but for multi-threaded server programs, we do not want the command line.
+
+<br/><br/>
+
+The daemon solutions have varied way to enter a Java program (other than the main method as well). But here, we will use what we already know: enter a Java program with main method and still remain detached from the command line.
+
+
+<br/><br/>
+
+There we need to understand two concepts:
+<br/>
+<strong>1. Starting a program.</strong>
+Using Java, it is possible to start "any program" using Runtime.exec() and ProcessBuilder.exec(). Wondering? Yes, any program that you can run in a command line can also be launched within Java programs as well. Another notable aspect of this is that the launched program does not have a command line associated with it, and it is optional for the launching Java program to keep track of this process. Well, we will use this concept to launch a Java process inside a Java program!
+
+<br/>
+
+<strong>2. Stopping the program</strong>
+For a Java program, there is no way to get the control of a process running in the system. So if we launched a process from a Java program, and lost control over it, how can we tame it to bring it down? Establish protocol! We will make the launched program to open a port and start listening to it, and when it receives a valid shutdown command, start its shutdown procedures.
+
+<br/><br/>
+
+<h3>Taming the terms...</h3>
+Below, I will show how to do this. But before, I will introduce some terms, so that further discussions are easy.
+<ol>
+<li><b>TargetApp</b> - the Java application (possibly a server program) that we want to get detached from the command line and go "daemonised".</li>
+<li><b>Daemon</b> - The class that actually goes into daemon mode and listens to shutdown commands. If you are coding the daemon inside your application, this functionality will be inside one of your classes in the TargetApp.</li>
+<li><b>Launcher</b> - This program will kick off the Daemon as a process detached from the command line. Also provides interfacing to provide shutdown command to the Daemon.</li>
+</ol>
+
+<br/><br/>
+
+<h3>Reaching out with Code</h3>
+<h4>1. TargetApp</h4>
+Since this can be any Java application that usually works in a loop, I will create a simple application that will keep printing a funny text to a file created in your current working directory.
+<pre class="brush: java; gutter: false; collapse: true">
+package org.otw.daemon;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Date;
+
+public class FunnyTargetApp {
+
+   private boolean shouldRun = false;
+   /**
+    * @param args
+    */
+   public static void main(String[] args) {
+       FunnyTargetApp app = new FunnyTargetApp();
+       app.start();
+   }
+
+   /**
+    * Starts the application.
+    */
+   public void start() {
+       shouldRun = true;
+       Thread workerThread = createWorkerThread();
+       Thread commandTracker = createCommandTrackerThread();
+       commandTracker.start();
+       workerThread.start();
+       try {
+           workerThread.join();
+       } catch (InterruptedException e) {
+           e.printStackTrace();
+       }
+   }
+
+   /**
+    * Stops the application, in a clean way.
+    */
+   public void stop() {
+       System.out.println("Stopping...");
+       shouldRun = false;
+   }
+
+   /**
+    * Creates a thread that mimics a continuous job as that of a server.
+    * @return
+    */
+   private Thread createWorkerThread() {
+       return new Thread(
+               new Runnable () {
+                   public void run() {
+                       File file = null;
+                       FileWriter wri = null;
+                       try {
+                           file = new File("test.out");
+                           System.out.println("Started with file at ["
+                                   + file.getAbsolutePath() + "].");
+                           file.createNewFile();
+                           wri = new FileWriter(file);
+                           while(shouldRun) {
+                               wri.write("Funny Text >> "+ new Date());
+                               wri.write("\n");
+                               wri.flush();
+                               Thread.sleep(1000);
+                           }
+                       } catch(Exception e) {
+                           e.printStackTrace();
+                       } finally {
+                           if (file !=null &amp;&amp; wri!=null) {
+                               try {
+                                   wri.flush();
+                                   wri.close();
+                               } catch (Exception e) {
+                                   e.printStackTrace();
+                               }
+                           }
+                       }
+                   }
+                  
+               }, "Worker Thread"
+       );
+   }
+
+   /**
+    * Creates a thread that will keep track of the commands issued on the command line.
+    * @return
+    */
+   private Thread createCommandTrackerThread() {
+       return new Thread(
+               new Runnable () {
+                       public void run() {
+                           System.out.println("Listening to commands from terminal.");
+                           while(true) {
+                               InputStreamReader isr = new InputStreamReader(System.in);
+                               BufferedReader reader =  new BufferedReader(isr);
+                               String command = null;
+                               try {
+                                   command = reader.readLine();
+                               } catch (IOException e) {
+                                   e.printStackTrace();
+                                   break;
+                               }
+                               if (command.equalsIgnoreCase("stop")) {
+                                   stop();
+                                   break;
+                               } else {
+                                   System.out.println("invalid command.");
+                               }
+                           }
+                       }
+               }, "Command Tracker"
+       );
+   }
+}
+</pre>
+
+
+
+<br/><br/>
+<h4>2. Daemon</h4>
+This is the class that actually gets detached from the terminal and becomes a daemon, while keeping a reference of the TargetApp. So basically it has to deal with 3 functionality:
+<h5>a. Launch the TargetApp and keep its reference.</h5>
+The TargetApp can be launched as a thread or as a process. The preferred way should be as a thread. For launching as a process, the TargetApp should have a either a start method or a regular main method. For launching TargetApp as a thread, invoke methods needed to start the TargetApp, if no such specific method is there, just invoke the main method.
+<pre class="brush:java">
+//Starting as a Thread (reflecting on the main method)
+Class payload = getPayloadStartClass(); // determine the payload class via configurations
+Object payloadInstance = payload.newInstance();
+Class[] paramTypes = new Class[1];
+paramTypes[0] = arguments.getClass();
+Object[] param = new Object[1];
+param[0] = getPayloadArguments();
+Method method = payload.getMethod("main", paramTypes);
+method.invoke(payloadInstance, param);
+</pre>
+
+<br/><br/>
+
+Note: This snippet uses reflection. You may use an interface to make things better, using a startup method.
+
+<pre class="brush:java">
+// Starting as a Process
+Class payload = getPayloadStartClass(); // determine the payload class via configurations
+String javaOptions = //get it via configurations
+String payloadArg = //get it via configurations
+String command = "java " + javaOptions + " "
+ + payload.getCanonicalName() + " "
+ + payloadArg;
+log.debug("Starting command line: " + command);
+Runtime.getRuntime().exec(command, null);
+</pre>
+<br/><br/>
+<h5>b. Starts up a shutdown port and waits for a shutdown command to be issued.</h5>
+<pre class="brush:java">
+ServerSocket serverSocket = ServerSocket(getShutdownPort());
+Socket socket = serverSocket.accept();
+boolean isLocalConnect = false;
+InputStream stream = null;
+PrintWriter out = null;
+try {
+   isLocalConnect = socket.getInetAddress().isLoopbackAddress();
+   socket.setSoTimeout(getNetworkTimeout());
+   stream = socket.getInputStream();
+   out = new PrintWriter(socket.getOutputStream(), true);
+} catch (AccessControlException ace) {
+   log.warn("StandardServer.accept security exception: "
+                      + ace.getMessage(), ace);
+   return;
+} catch (IOException e) {
+   log.error("StandardServer.await: accept: ", e);
+   return;
+}
+</pre>
+<br/><br/>
+<h5>c. Stop the TargetApp and then itself for a clean shutdown on receiving valid shutdown command on the shutdown port.</h5>
+<pre class="brush:java">
+String command = readStream(stream); // reads command from the input stream
+boolean match = command.toString().equals(shutdown);
+if (match) {
+   log.debug("Shutdown command recieved via Telnet.");
+   shutdown(); // calling the shutdown procedures
+   return;
+} else {
+   log.warn("Invalid command.");
+}
+</pre>
+
+<br/><br/>
+You can telnet to the port and provide shutdown command. The Launcher's stop routine also does the same thing (the code will follow soon).
+
+<br/><br/>
+
+Remember to register shutdown hooks on the application startup, and remove it explicitly, if the shutdown was not initiated by the shutdown hook. Shutdown hook is a Thread that is not started, and registered with the JVM. When the JVM goes down, this thread will be started. So we can write some cleanup code in this thread. Remember to return from the run of the shutdown hook quickly.
+<br/><br/>
+
+<h4>3. Launcher</h4>
+This class will provide us hooks to start up the Daemon, and stop it based on arguments (from the command line). To launch the Daemon as a Java process and detach it from the command line, we will use the Runtime.exec(). This will be similar to the process mode launching of TargetApp.
+<pre class="brush:java">
+String strCmd = "java " + "-classpath " + classpath + javaOptions
+   + " org.ops4j.laboratory.users.open4thomas.jdaemon.Carrier";
+log.debug("Starting command line: " + strCmd);
+
+Process proc = Runtime.getRuntime().exec(strCmd, builder.getArguments());
+Thread hook =  createShutdownHook(proc);// create shutdown hook thread
+Runtime.getRuntime().addShutdownHook(hook);
+</pre>
+
+<br/><br/>
+
+To stop the running Daemon cleanly, the class will set up a socket connection to the Daemon's shutdown port, and supply a shutdown command. This will trigger a shutdown procedure in Daemon, which in turn can trigger shutdown on the TargetApp.
+<pre class="brush:java">
+Socket socket = null;
+PrintWriter out = null;
+try {
+   socket = new Socket("localhost", getShutdownPort());
+   out = new PrintWriter(socket.getOutputStream(), true);
+} catch (UnknownHostException e) {
+   log.error("Unknown address: localhost.");
+  return;
+} catch (IOException e) {
+   log.error("Couldn't connect to: localhost.");
+   return;
+}
+
+out.write("shutdown\n");
+out.flush();
+</pre>
+
+<br/><br/>
+
+<h3>Getting around with security holes.</h3>
+There is one important security hole in this approach. When the Daemon is listening on the shutdown port for shutdown command, it is possible for a hacker to compromise on this feature. 
+<br/>
+This can be eliminated with few approaches:
+<h4>1. Provide password protection</h4>
+The application could ask for a password that could be stored in encrypted format, and before accepting shutdown command, the user will be needed to provide a password.
+<h4>2. Preventing DoS attack</h4>
+A malicious user can connect to the shutdown port, and provide junk command continuously effectively doing a DoS attack. This can be dealt by accepting limited amount of failed password, or wrong command attempts. Limit the length of command/password.
+
+<br/><br/>
+<h3>More improvements</h3>
+In the Launcher's stop, after issuing shutdown command to the Daemon, we could check for the existence of a PID file to know if the application is still running. The PID file can be created by the Daemon with "deleteOnExit" flag.
+
+<br/><br/>
+
+Another improvement area is to provide an interface that the TargetApp should implement, so that it will be easy to call startup and shutdown routines on the TargetApp.
+
+<br/><br/>
+
+There could be more, but not right now in my mind.
+
+<br/><br/>
+<h3>Want more code?</h3>
+Sure, the code snippet I provided here is just to explain the core concept. There are other things required to get it working. I worked out quickly on this, and the code is available in my lab at OPS4J <a href="https://scm.ops4j.org/repos/ops4j/laboratory/users/open4thomas/jdaemon/jdaemon-main">here</a>. Please note that I may change the code over time. I am writing this article as of revision #14752.
+<br/><br/>
+This is a regular SVN repository. So you can get the source code with
+<br/>
+<pre class="brush:plain; gutter: false;">
+svn co https://scm.ops4j.org/repos/ops4j/laboratory/users/open4thomas/jdaemon/jdaemon-main
+</pre><div class="blogger-post-footer">- Thomas Joseph</div>

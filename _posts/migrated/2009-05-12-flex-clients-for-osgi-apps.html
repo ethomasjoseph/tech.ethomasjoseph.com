@@ -1,0 +1,62 @@
+---
+layout: post
+title: Flex Clients for OSGi apps
+date: '2009-05-12T12:34:00.006+05:30'
+author: Thomas Joseph
+tags:
+- Java
+- RIA
+- OSGi
+modified_time: '2009-05-12T13:58:33.357+05:30'
+blogger_id: tag:blogger.com,1999:blog-5715425530181339158.post-876875298872454031
+blogger_orig_url: http://tech.ethomasjoseph.com/2009/05/flex-clients-for-osgi-apps.html
+---
+
+As I continued to work on OSGi based web apps, there was rising demands from our clients and partners about supporting Flex clients in future. I took a lead to evaluate our existing architecture consisting mainly of POJOs, supported with Spring and OSGi.
+<br/><br/>
+Thanks to the documentation at <a href="http://opensource.adobe.com/wiki/display/blazeds/Overview">BlazeDS site</a> and the <a href="http://feeds.dzone.com/%7Er/zones/refcardz/%7E3/icbjx9Ewknk/flex-spring-integration">refcard at DZone</a> for helping me out. I am almost ignorant of Flex programming, but still I could make out few things. Here is my first-cut evaluation.
+<br/>
+<h2>Flex and Java with POJO</h2>
+I was happy to learn that with Spring's hailed paradigm of programming with interfaces and POJOs would make integration with Flex very simple, and would hardly require any change in how we program and architect our application.
+<br/><br/>
+Flex has strong ties to Java. Its server BlazeDS is based on Java remoting. Good news that with Spring BlazeDS, we can reuse our interfaces and its POJO implementations.
+<br/><br/>
+<a href="http://www.springsource.org/spring-flex">Spring BlazeDS</a> as described by SpringSource:
+<blockquote>
+Spring BlazeDS Integration is a new addition to the Spring portfolio, and a component of the complete Spring Web stack.  This project's purpose is to make it easier to build Spring-powered Rich Internet Applications using <a href="http://www.adobe.com/devnet/flex/">Adobe Flex</a> as the front-end client.  It aims to achieve this purpose by providing first-class support for using the open source <a href="http://opensource.adobe.com/wiki/display/blazeds/BlazeDS/">Adobe BlazeDS</a> project and its powerful remoting and messaging facilities in combination with the familiar Spring programming model.
+</blockquote>
+<br/><br/>
+Blaze DS is based on Java remoting and web messaging from Adobe. Its primary purpose of existence is easier integration of Adobe Flex/Adobe AIR with existing Java code to create Rich Internet Applications (RIA). Spring BlazeDS leverages more on this end by its dependency injection, and simpler integration platform.
+<br/><br/>
+Blaze DS can be set to run on any web container such as Tomcat. It listens to a particular URL for client requests and processes them. Flex clients connect to the Blaze DS server and executes Java methods. The base transport protocol will be HTTP.
+<br/><br/>
+The regular client calls with Blaze DS is usually handled by a Servlet from Blaze DS. However, when Spring Blaze DS comes into picture, this is replaced by the Spring's Spring MVC Servlet, so that Spring can intercept those client calls.
+<br/><br/>
+Flex works on the concept of message broker. A class that will can handle client calls. The clients calls will be routed to the message broker through additional configuration specific to Blaze DS. We should be happy to expose our interfaces and its implementation classes to work as message brokers.
+<br/><br/>
+A sample Spring's application-context.xml file
+<pre class="brush: xml">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:flex="http://www.springframework.org/schema/flex"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/flex
+http://www.springframework.org/schema/flex/spring-flex-1.0.xsd"&gt;
+&lt;!-- Spring Beans's --&gt;
+&lt;bean id="myService" class="MyServiceImpl" /&gt;
+&lt;!-- Simplest possible message broker --&gt;
+&lt;flex:message-broker /&gt;
+&lt;!-- exposes myService as BlazeDS destination --&gt;
+&lt;flex:remote-service ref="myService" /&gt;
+&lt;/beans&gt;
+</pre>
+<br/>
+The point to be noted above is that myService can be given any reference, including a reference to any OSGi service.
+<br/><br/>
+Another notable point about Spring BlazeDS Integration is that Flex can support authentication, that can easily plug in with <a href="http://static.springsource.org/spring-security/site/index.html">Spring Security</a>.
+<br/>
+<h3>Kudos</h3>
+Spring BlazeDS has not yet had its final release, but indeed a great work from Spring guys to help lift existing POJO based applications to work with Flex clients in most non-intrusive manner.<div class="blogger-post-footer">- Thomas Joseph</div>

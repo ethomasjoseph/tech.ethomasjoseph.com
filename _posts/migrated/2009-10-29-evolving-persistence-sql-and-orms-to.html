@@ -1,0 +1,64 @@
+---
+layout: post
+title: Evolving persistence, SQL and ORMs to the next generation
+date: '2009-10-29T17:50:00.003+05:30'
+author: Thomas Joseph
+tags:
+- persistence
+- orm
+- nosql
+- sql
+modified_time: '2010-06-27T21:27:58.759+05:30'
+blogger_id: tag:blogger.com,1999:blog-5715425530181339158.post-6519400021180807413
+blogger_orig_url: http://tech.ethomasjoseph.com/2009/10/evolving-persistence-sql-and-orms-to.html
+---
+
+Recently there has been a lot of discussion on the web describing the <a href="http://codemonkeyism.com/orms/">ORMs as a thing of the past</a>, and its <a href="http://debasishg.blogspot.com/2009/10/are-orms-really-thing-of-past.html">associated discussions</a> that <a href="http://blog.schauderhaft.de/2009/10/18/hibernate-problems-alternative/">agreed</a> and <a href="http://java.dzone.com/articles/are-orms-really-thing-past">disagreed</a> with their arguments presented to <a href="http://www.hatfulofhollow.com/posts/code/farewell-to-orms.html">various degrees</a>. The discussions even took a long <a href="https://twitter.com/#search?q=orms%20thing%20of%20past">conversations across the twitter space</a> too.
+<br/>
+
+<h3>Persistence models and application evolution</h3>
+Persistence is important for any application. Over the years this has been done in <a href="http://internetmindmap.com/database_software">various ways</a>. While RDBMS and SQL were the most obvious choice till few years from now, recent times have also seen successful practical usage of other persistence models which include Amazon's SimpleDB, and Google's BigTable among others. These non-relational alternatives fall under the <a href="http://en.wikipedia.org/wiki/Nosql" onclick="javascript:pageTracker._trackPageview('/outbound/article/en.wikipedia.org');">NoSQL</a> (or “<a href="http://therealadam.com/archive/2009/08/31/its-not-nosql-its-post-relational" onclick="javascript:pageTracker._trackPageview('/outbound/article/therealadam.com');">post-relational</a>”) persistence models.
+<br/><br/>
+
+
+Naturally it becomes quite obvious that over the time, relational databases have <a href="http://www.computerworld.com.au/index.php?q=article/309716/no_sql_anti-database_movement_gains_steam&amp;fp=39&amp;fpid=26257">proven inadequate</a> to satisfy the growing needs of the Web2.0 applications. The advent of the new-generation non-relational databases are a proof to this.  Every persistence model has a niche area to which they cater. The newer databases have has also made people to think about "<span style="font-style: italic;">mix-n-match</span>" use of the various persistence models as people talk <a href="http://benscofield.com/2009/09/polyglot-persistence">more</a> and <a href="http://www.infoq.com/news/2009/07/leberknight-polyglot-persistence">more</a> about <a href="http://www.nearinfinity.com/blogs/scott_leberknight/polyglot_persistence.html">polyglot persistence</a>.
+<br/>
+
+<h3>The relation-object impedance mismatch</h3>
+Since RDBMS has a solid theoretical foundation, and has been used across various applications, its existence for another century cannot be ruled out. Yet new advances in persistence like <a href="http://couchdb.apache.org/">CouchDB</a>, <a href="http://labs.google.com/papers/bigtable.html">BigTable</a>,  <a href="http://en.wikipedia.org/wiki/Amazon_SimpleDB">SimpleDB</a>, <a href="http://neo4j.org/">Graph databases</a>, etc are most welcome steps in advancing the persistence mechanism.
+<br/><br/>
+
+
+Even with newer persistence models, a lot of the enterprise applications still use, and will continue to use relational databases. Applications that use up this data are largely represented as objects. While object model seem to be the most obvious choice for application development, the mismatch between the relational model and the object model comes as the reason for a lot of hues and cries that have given rise to ORMs. The learning curve and the pain in using these ORMs have now given rise to debates questioning the existence of ORMs in the future.
+<br/><br/>
+
+
+More than debating over the existence of ORMs itself, rather a deep look is needed, to the problem which the ORM is trying to solve. Why does the ORM exist? The most popular answer would be impedance mismatch. But the mismatch is pointed out between relational data representation versus the object model.
+<br/>
+
+<h3>Overhauling the persistence mechanisms</h3>
+Often the data storage mechanism and its interfacing API are seen as an integral part, including the RDBMS data storage and SQL. They are often seen as one, but are actually two separate components of the modern day  relational databases. They were created at a time when the existence and usage of OO was questionable. Even now when they are used for a long time, it can be argued that SQL and RDBMS themselves have a mismatch in the paradigms. Now when OO has gained so much importance, it is time that the RDBMS and SQL should be re-looked from the OO perspective.
+<br/><br/>
+
+
+We can consider two aspects in any persistence mechanism:
+<ol><li>The way data is stored (relational, key-value, hierarchical ,  column, JSON etc) using various data structures and storage mechanisms. Closely associated to this data storage will be the related methods of storing and fetching the stored data (algorithms used to fetch data based on persistent store itself - eg relational algebra) that could be probably exposed through function calls. The function calls will be closely associated to the data store mechanism itself.</li><li>Interfacing provided to interact with persistent store (SQL, NoSQL, ObjectQL, programming language API  etc).</li></ol>
+Often these two aspects are baked together (in our minds most of the time). This thinking should evolve and these two should essentially be seen as separate, and ideally pluggable. We talk about adapter pattern in programming languages, but the same concept could probably be applied to persistence mechanisms as well. The persistent storage and its storing and fetching mechanism should allow widely different interfacing provided to interact with it. DB vendors can provide few interfacing mechanism, and also allow others to write other interfacing mechanism that should be pluggable.
+<br/>
+
+<img style="margin: 0px auto 10px; display: block; text-align: center; width: 300px; height: 203px;" src="http://static.openthoughtworks.com/images/persistence-interfacing-small.png" alt="Persistence Interfacing" border="0" />
+
+<br/>
+Interfacing will expose the persistent store in various forms - relational model, or object model or even other models used now and may come in future.  Mapping of the datastore persistence model to the exposed model should reside with the interfacing mechanism used.
+<br/>
+
+<h3>Concluding thoughts</h3>
+Achieving this practically may not be very easy, but not impossible. Once this is achieved, ORMs will rather shed off the mapping weight and evolve as frameworks that enhance developer productivity on issues like caching, application scaling etc. Rather, ORMs will no longer be ORMs and probably a new breed of softwares will evolve that will take care of the cross-cutting concerns for an application when dealing with persistent stores.
+<br/><br/>
+
+
+This may look crap to some,  but then that is what I wish. I am an application developer presenting my ideas on what a database itself can provide, and how applications can leverage the new capabilities. The issue needs to be looked at by db vendors and research scholars. DB vendors and db developers need to give deeper thoughts to the problems faced by application developers in their need to persist application data. How many of us use the bare databases (using only SQLs probably) without an application? The current forms of persistence may be right in their own theoretical framework, but it should evolve to fit in seamlessly with the application development space, where it is used.
+<br/><br/>
+
+
+And till that happens, I will have to carefully weigh my choices among NoSQL, SQL and ORMs, and muddle with the problems that have already heated up a lot of discussions in the application development space.<div class="blogger-post-footer">- Thomas Joseph</div>

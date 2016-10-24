@@ -1,0 +1,54 @@
+---
+layout: post
+title: Sling - Who is closing my JCR Session?
+date: '2015-09-26T19:19:00.000+05:30'
+author: Thomas Joseph
+tags:
+- AEM
+- Sling
+- CQ
+- Tips
+modified_time: '2015-09-26T19:31:18.715+05:30'
+blogger_id: tag:blogger.com,1999:blog-5715425530181339158.post-5864455401820943236
+blogger_orig_url: http://tech.ethomasjoseph.com/2015/09/sling-who-is-closing-my-jcr-session.html
+---
+
+<div dir="ltr" style="text-align: left;" trbidi="on">
+Has this happened to you? - You got the JCR session, but at times, you find that "someone" closed the JCR session! And that too - its very inconsistent. Sometimes it works and other times it does not! Well then its that you have hit the Sling / CQ development anti-pattern. And possibly this is what you see in your log:<br />
+<br />
+<span style="font-family: Courier New, Courier, monospace;">javax.jcr.RepositoryException: This session has been closed.</span><br />
+<br />
+As suggested by <a href="https://cqdump.wordpress.com/2013/07/23/cq-development-patterns-sling-resourceresolver-and-jcr-sessions/" target="_blank">Jorg Hoh on his blog</a> on CQ development patterns, you should rely on Sling objects as much as possible, rather than relying directly on the JCR objects. But at those cases (e.g. writing to a repository) when you will have to directly rely on the JCR repository you will have to still use the JCR Session, its recommended that you directly get the JCR session from the Sling repository, and not adapt it from the <span style="font-family: Courier New, Courier, monospace;">ResourceResolver</span>, IF you do not intend to use the <span style="font-family: Courier New, Courier, monospace;">ResourceResolver </span>directly.<br />
+<br />
+<pre class="brush: java">@Reference
+private ResourceResolverFactory resolverFactory;
+
+// Wrong way of obtaining JCR Session
+private Session getSessionAntipattern() throws LoginException {
+ ResourceResolver resolver = resolverFactory.getServiceResourceResolver(null);
+ return resolver.adaptTo(Session.class);
+}
+</pre>
+<div style="text-align: center;">
+<em><strong>Code Listing 1:</strong> JCR Session Creation Antipattern</em></div>
+<br />
+<pre class="brush: java">@Reference
+private SlingRepository slingRepository;
+
+// Correct way of obtaining JCR session
+private Session getJCRSession() throws RepositoryException {
+ return slingRepository.loginService(null, null);
+}
+</pre>
+<div style="text-align: center;">
+<em><strong>Code Listing 2:</strong> JCR Session Creation Pattern</em></div>
+<br />
+You may wonder, what's wrong. Logically thinking, why would you retrieve the <span style="font-family: Courier New, Courier, monospace;">ResourceResolver </span>(and &nbsp;adapt it to JCR Session), if you do not intend to use the <span style="font-family: Courier New, Courier, monospace;">ResourceResolver</span>? &nbsp;This logic has made the Sling developer's to close the underlying JCR Session of the <span style="font-family: Courier New, Courier, monospace;">ResourceResolver </span>when the <span style="font-family: Courier New, Courier, monospace;">ResourceResolver </span>object is Garbage Collected. Although, how this is done is&nbsp;<a href="https://issues.apache.org/jira/browse/SLING-4372" target="_blank">being changed</a>&nbsp;across the releases, the basic idea of releasing the resources held up (JCR Session) is still valid.<br />
+<br />
+If you observe in the code snippet 1 (antipattern), the scope of the <span style="font-family: Courier New, Courier, monospace;">ResourceResolver </span>object ends as soon as the method returns, which makes it eligible for garbage collection. This means that whenever the garbage collector runs, the JCR Session got through the antipattern would be closed - oops! This explains your JCR Session getting closed inconsistently.<br />
+<br />
+I would like to emphasize that adapting to JCR Session from <span style="font-family: Courier New, Courier, monospace;">ResourceResolver </span>itself is not wrong, if you intend to use the <span style="font-family: Courier New, Courier, monospace;">ResourceResolver </span>along, other than just adapting it to JCR Session.<br />
+<br />
+Hope this post helps someone save some time debugging on the JCR Session getting closed inconsistently.<br />
+<br /></div>
+<div class="blogger-post-footer">- Thomas Joseph</div>

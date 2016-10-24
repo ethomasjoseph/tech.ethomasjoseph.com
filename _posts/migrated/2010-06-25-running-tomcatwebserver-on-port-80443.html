@@ -1,0 +1,48 @@
+---
+layout: post
+title: Running tomcat/webserver on port 80/443 without root permissions on Linux
+date: '2010-06-25T00:22:00.000+05:30'
+author: Thomas Joseph
+tags:
+- Linux
+- Tips
+modified_time: '2015-09-26T19:37:10.796+05:30'
+blogger_id: tag:blogger.com,1999:blog-5715425530181339158.post-8761943781117941503
+blogger_orig_url: http://tech.ethomasjoseph.com/2010/06/running-tomcatwebserver-on-port-80443.html
+---
+
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<h3>
+The Problem</h3>
+One of the concerns for web application developers is to run their web servers on the default port (which is 80 for HTTP, and 443 for HTTPS). However, since these ports are privileged ports (ports less that 1024 are privileged ports in Linux/UNIX), the developers are either required to run the server either as a root, or run on alternative non privileged ports such as 8080 or 8443. <br />
+<br />
+<h3>
+The Solution</h3>
+While to the same problem, there may be different solutions, the most simplest of all that I found was to do local port forwarding. Again here, many do not like to fiddle with commands every time. An easier, and one time solution to this is to use a program called "guidedog". <br />
+<br />
+Guidedog is a GUI based advanced and powerful networking configuration tool for Linux, that can be used for packet routing, NAT and port-forwarding. Although it is for KDE, your Linux package manager should be intelligent enough to make that work for you even if you do not use KDE. We will here use its port-forwarding feature. <br />
+<br />
+<h3>
+Steps</h3>
+<ol>
+<li>Launch your favorite package manager tool (Synaptic/Aptitude/YUM etc) and install "guidedog". For Ubuntu I use Synaptics Package manager, or even a command would do. <br />
+<pre class="brush: bash">sudo apt-get install guidedog
+</pre>
+</li>
+<li>Once installed, launch the application with root permissions (don't worry, you require it to do just once). <br />
+<pre class="brush: bash">sudo guidedog</pre>
+<br />
+On Ubuntu, you can also find it under the menu Applications-&gt;Other. You will have to even edit the menu command to <code>gksu guidedog</code>. </li>
+<li>Move to the "Forward" tab. Add a new rule, such that TCP traffic on port 80 is forwarded to port 8080 (or whatever port your server runs on). Similarly, add another rule, such that TCP traffic on port 443 is forwarded to port 8443 (or whatever port your server runs on for HTTPS/SSL connections). After you are done, your screen should look like this:<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://static.openthoughtworks.com/images/guidedog.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img class="border" src="http://static.ethomasjoseph.com/images/guidedog.png" width="400px" /></a></div>
+</li>
+<li>Apply the changes.</li>
+</ol>
+You are done. Now just hit on <code>localhost</code> instead of <code>localhost:8080</code>, next time you start your applications. <br />
+<br />
+<h3>
+Tool power</h3>
+The tool creates a system rule to forward the traffic to a different port(8080/8443) from its original destination (port 80/443) on the same machine. You can see in the tool that it is much more powerful, and can allow even port forwarding for other machines too, or even do IP Masquadering/NAT (Network Address Translation). However, explaining on these topics would outgrow the topic of this blog and would take more of your and my time too.</div>
+<div class="blogger-post-footer">- Thomas Joseph</div>

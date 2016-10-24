@@ -1,0 +1,39 @@
+---
+layout: post
+title: Configuring log4j with XML in OSGi
+date: '2009-12-15T20:13:00.010+05:30'
+author: Thomas Joseph
+tags:
+- OSGi
+- ops4j
+- Tips
+modified_time: '2009-12-15T20:45:56.730+05:30'
+blogger_id: tag:blogger.com,1999:blog-5715425530181339158.post-8174019623107931526
+blogger_orig_url: http://tech.ethomasjoseph.com/2009/12/configuring-log4j-with-xml-in-osgi.html
+---
+
+Sometime back, I had to make <a href="http://perf4j.codehaus.org/">perf4j</a> work on OSGi. It required <a href="http://logging.apache.org/log4j/">log4j</a> as the logging library and purely demanded <code>log4j.xml</code> (it would not take the <code>.properties</code> file since the configuration must attach downstream appenders). I assumed that it should be simple, but unfortunately it was not. In the rest of this post, I describe how I could get around this, and used log4j.xml to configure log4j logging in OSGi.<br /><br />
+<a name='more'></a>
+<h3>Some background on logging for OSGi</h3>
+Logging was something that was looked as one of the earliest thing for building up our OSGi infrastructure libraries. Since most of the bundles and libraries require logging to be there, we were forced to provide its implementation at the early stages itself. What came as the first viable option was to use <a href="http://wiki.ops4j.org/display/paxlogging/">Pax Logging</a>. It is still the best logging mechanism for OSGi. It can take configurations in a variety of ways, the most pleasing of all the available configuration models was using the ConfigAdmin service that would leverage the OSGi's dynamism. This is again the best was to configure any service, and not just logging. Even without any explicit configuration Pax Logging would just work fine with its default behavior with a DEBUG for all the bundles in the system.<br />
+<br />
+We chose Pax Logging with ConfigAdmin service. At first the ConfigAdmin provider was chosen as <a href="http://wiki.ops4j.org/display/ops4j/Pax+ConfMan">Pax ConfMan</a>. But due to its limitation of not providing runtime updates, I chose to opt for <a href="http://wiki.ops4j.org/display/~adreghiciu@gmail.com/Pax+Coin">Pax Coin</a> which is still under incubation, but has some good features including runtime property updates and capability to consume configuration data from multiple sources. I was happy to make Pax Coin consume configuration from file system. But I could find that it simply did not accept configurations from the xml file.<br />
+<br />
+So, as of now though providing configuration data via ConfigAdmin seems to be a good choice, I could not find any quick solution to this. So I found a temporary hack for this.
+<br />
+<h3>Hack</h3>
+<strong>Note:</strong> The following instructions are for working on <a href="http://paxrunner.ops4j.org/">Pax Runner</a>. If you are not already using it, I would highly recommend it as a tool to start your OSGi framework. It would be the most elegant way to get started with OSGi.<br/>
+<ol>
+<li>
+Remove any references to pax logging from your provisioning, so that it doesn't appear in your OSGi platform.</li>
+<li>Add commons-logging and log4j jars to the platform as bundles. Add the following URLs in your profile/provisioning file:
+<pre>
+    wrap:mvn:commons-logging/commons-logging/1.1.1
+    wrap:mvn:log4j/log4j/1.2.15
+</pre>
+</li>
+<li>Point to the <code>log4j.xml</code> file it OSGi classpath via Pax Runner. Its easy to append <code>--cp=&lt;path_to_dir&gt;</code> as a parameter when starting Pax Runner. The directory <code>path_to_dir</code> will now be in classpath, so you can place our log4j.xml there to be picked up by the log4j system.
+</li>
+</ol>
+<h3>Future</h3>
+This was a temporary hack, but the concern is that I need to find a better way to make ConfigAdmin service consume XML.<br /><div class="blogger-post-footer">- Thomas Joseph</div>

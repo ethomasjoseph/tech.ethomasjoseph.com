@@ -1,0 +1,180 @@
+---
+layout: post
+title: Tuning your JCR Queries for the AEM & Jackrabbit OAK
+date: '2015-03-04T18:41:00.002+05:30'
+author: Thomas Joseph
+tags:
+- AEM
+- CQ
+- OAK
+- Performance Tuning
+modified_time: '2015-10-31T02:02:56.377+05:30'
+thumbnail: http://4.bp.blogspot.com/-skwy0BAb2b8/VO4b5DMxyDI/AAAAAAAAEq8/fgWuzmCcp0A/s72-c/luke.png
+blogger_id: tag:blogger.com,1999:blog-5715425530181339158.post-3246719424112213796
+blogger_orig_url: http://tech.ethomasjoseph.com/2015/03/tuning-your-jcr-queries-for-aem.html
+---
+
+<div dir="ltr" style="text-align: left;" trbidi="on">
+Application tuning is an activity which which every developer and architect will encounter sooner or later for any application. AEM based applications are no different. One of the activities that is particularly important with <a href="http://docs.adobe.com/docs/en/aem/6-0.html" target="_blank">AEM 6</a> is query tuning. AEM 6 uses <a href="http://jackrabbit.apache.org/oak/" target="_blank">Jackrabbit OAK</a> as the repository and hence we would have to know more about OAK to tune the queries. Apart from tuning the queries itself a majority of the time you would be tuning your indexes based on the query. AEM itself uses a lot of queries within for the application to function. It is important to understand how the queries and the indexes work in AEM.<br />
+<br />
+<i><u><b>Update:</b></u> This post was not written as a generic performance tuning guideline for AEM, but just on tuning the queries on OAK repository. Although a lot of the performance depends on how well tuned is your repository. Adobe's recent service packs on AEM 6, and AEM 6.1 in general are much stable and performant. Please refer to the Adobe's documentation for </i><a href="https://helpx.adobe.com/experience-manager/kb/performance-tuning-tips.html" style="font-style: italic;" target="_blank">general guidelines on performance tuning</a><i>.</i><br />
+<br />
+While the instructions herein are primarily written for AEM applications, non-AEM applications which uses Jackrabbit OAK can also benefit.<br />
+<br />
+There are no hard and fast rules that a particular index will work. This is very similar to database indexes. You would have to look at the current queries being fired and the current repository state and arrive at the best indexes. Often you arrive at the best indexes over time. You would have to apply an index and the re-evaluate your queries, then further tune your queries or try out a different index. Repeat these steps over and over again to find the best and optimized index.<br />
+<br />
+However, there are some basic guidelines which should be followed, which can help you define the best indexes to you application specific needs:<br />
+<br />
+<h2 style="text-align: left;">
+Ground Rules (AEM Specific)</h2>
+<ol style="text-align: left;">
+<li>Apply the latest Service Pack available and Oak specific hotfixes (if applicable). As of date <a href="http://docs.adobe.com/docs/en/aem/6-0/release-notes-sp2.html" target="_blank">SP-2</a> is publicly available.</li>
+<li>AEM has some built in indexes as well. Do not arbitrarily re-index these OOTB indexes. Indexing is a costly and resource-intensive operation. OOTB indexes should be re-indexed only when specifically advised by Adobe (this is a catch - sometimes you know that re-indexing a particular OOTB index will solve your problem at hand, but get a buy-in from Adobe for this). At other times you would have to create a new index (type) since the OOTB / existing index is in-efficient.</li>
+<li>Be aware that there has been some important changes since <a href="http://mail-archives.us.apache.org/mod_mbox/www-announce/201412.mbox/%3CCAGP5+Yq0BMW7OT6KevTCwj6__fsdxOFOVKE--_st+rjjjM6ecQ@mail.gmail.com%3E" target="_blank">OAK 1.0.9</a> - especially related to Lucene indexes, hence be mindful about reference resources that advice about using OAK indexes. Check the <a href="http://jackrabbit.apache.org/oak/docs/query/query.html" target="_blank">OAK's latest documenting on query and indexing</a>.</li>
+</ol>
+<br />
+<h2 style="text-align: left;">
+Tools</h2>
+<ol style="text-align: left;">
+<li>If you are using AEM, the best tool to help you debug and explain your queries, find out slow and popular queries is to install Adobe <a href="http://adobe-consulting-services.github.io/acs-aem-tools/" target="_blank">AEM ACS Tools package</a>&nbsp;(0.0.20 and above). Once installed, you can have access it using the URL: <a href="http:/#">http://yourinstance/etc/acs-tools/explain-query.html</a>&nbsp;</li>
+<li>If the above is not possible, you may have to depend on JMX to find slow and popular queries, you can use the Felix console to identify slow and popular queries on any instance&nbsp;</li>
+<ul>
+<li><a href="http:/#">http://yourinstance/system/console/jmx/org.apache.jackrabbit.oak%3Aid%3D9%2Cname%3D"Oak+Query+Statistics"%2Ctype%3D"QueryStat"</a>.&nbsp;</li>
+</ul>
+<li>You can also use the OSGi Service of <span style="font-family: Courier New, Courier, monospace;"><b>org.apache.jackrabbit.api.jmx.QueryStatManagerMBean</b></span> to programmatically find the slow and popular queries.&nbsp;</li>
+<ol><pre class="brush:java">queryStatManagerMBean.getSlowQueries().values()
+queryStatManagerMBean.getPopularQueries().values()</pre>
+</ol>
+<li>Use the following debug logs for details on various aspects of query and indexing:</li>
+<ol>
+<li>Enable DEBUG logging on &nbsp;<b><span style="font-family: Courier New, Courier, monospace;">org.apache.jackrabbit.oak.query</span></b> for logs to find the details on query cost calculation (explain)</li>
+<li>Enable DEBUG logging on &nbsp;<b><span style="font-family: Courier New, Courier, monospace;">org.apache.jackrabbit.oak.plugins.index</span></b> for logs to find the details on indexing</li>
+</ol>
+<li>Use JMX to have high level overview about lucene indexes (OOTB or custom):</li>
+<ul>
+<li><a href="http:/#">http://yourinstance/system/console/jmx/org.apache.jackrabbit.oak%3Aid%3D4%2Cname%3D"Lucene+Index+statistics"%2Ctype%3D"LuceneIndex"</a></li>
+</ul>
+<li>To look at the actual indexes, you can stop the AEM / Oak instance and use the <b><a href="http://search.maven.org/#search%7Cga%7C1%7Coak-run" target="_blank">oak-run</a>&nbsp;"console</b>" to explore the indexes among various other options:</li>
+<ul>
+<li><pre class="brush:bash;gutter: false;">java -jar oak-1.1.6.jar explorer /path/to/crx-quickstart/repository/segmentstore</pre>
+(oak repository)</li>
+<li>On the resulting console, run the following command, to dump the index into file system:</li>
+<ul>
+<li><pre class="brush:bash;gutter: false;">lc dump path/to/dump /path/to/luceneIndex/inRepository</pre>
+</li>
+<li>eg. <pre class="brush:bash;gutter: false;">lc dump path/to/dump /oak:index/myCustomLuceneIndex</pre>
+</li>
+</ul>
+<li>Now <a href="http://lingpipe-blog.com/2012/07/24/using-luke-the-lucene-index-browser-to-develop-search-queries/" target="_blank">analyse the resulting dump</a> using Lucene Index analyser tool <b><a href="https://code.google.com/p/luke/" target="_blank">Luke</a></b>:</li>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://4.bp.blogspot.com/-skwy0BAb2b8/VO4b5DMxyDI/AAAAAAAAEq8/fgWuzmCcp0A/s1600/luke.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="263" src="http://4.bp.blogspot.com/-skwy0BAb2b8/VO4b5DMxyDI/AAAAAAAAEq8/fgWuzmCcp0A/s1600/luke.png" width="320" /></a></div>
+</ul>
+</ol>
+<pre class="brush:bash;gutter:false;">java -XX:MaxPermSize=512m -classpath luke-with-deps.jar;oak-lucene-1.1.6.jar org.getopt.luke.Luke</pre>
+<ol style="text-align: left;"><ul>
+<li>The following jars needs to be used:</li>
+<ul>
+<li>The luke-with-deps.jar can be downloaded from <a href="https://github.com/DmitryKey/luke/releases">https://github.com/DmitryKey/luke/releases</a></li>
+<li>The oak-lucene-1.1.6.jar can be <a href="http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.apache.jackrabbit%22%20AND%20a%3A%22oak-lucene%22" target="_blank">downloaded </a>from Maven repository as well.</li>
+</ul>
+</ul>
+</ol>
+<br />
+<ol style="text-align: left;"><ul><ul></ul>
+</ul>
+</ol>
+<h2 style="text-align: left;">
+Guidelines</h2>
+<div>
+The basic steps for tuning your queries can be summarized as follows:</div>
+<div>
+<ol style="text-align: left;">
+<li>Identify the slow queries in your system. This could be the one that takes a lot of time to execute primarily because there are not proper indexes and there are node traversals happening. The system itself can be queries through JMX to identify the slow and popular queries.</li>
+<li>&nbsp;Tune your queries to ensure that you can use indexes whenever possible.</li>
+<li>Identify properties and nodes that needs to be indexed, based on the slow queries identified, and create Oak indexes for them.</li>
+<li>Verify your queries and indexes after creating indexes. The indexes are optimum if the cost of the queries identified are lowest - 0 being the best.</li>
+<li>Repeat steps 3 and 4 above (by even creating different indexes for the same query) till the most cost effective index is created.</li>
+</ol>
+</div>
+<h3 style="text-align: left;">
+Identification of Slow Queries</h3>
+Identify the slow queries by monitoring the error.log. Note the queries which traverses many nodes, where the log may look something like:<br />
+<ol style="text-align: left;"><ul><pre class="brush:bash;gutter: false;">org.apache.jackrabbit.oak.spi.query.Cursors$TraversingCursor Traversed 1000 nodes
+... consider creating an index or changing the query&nbsp;</pre>
+</ul>
+</ol>
+<div>
+You can also identify the slowest and popular queries in the system (which the Jackrabbit Oak keeps track of) using JMX or Adobe AEM Commons as described in the "Tools" section above.</div>
+<ol style="text-align: left;"><ul></ul>
+</ol>
+<div>
+<h3 style="text-align: left;">
+Indexing</h3>
+</div>
+For the same query you can create multiple indexes. However choose the one to be promoted to your production instances which prove to be the the best in terms of achieving lower cost to the query at hand.<br />
+<br />
+Consider the following when deciding the type of index to be used:<br />
+<ol style="text-align: left;"><ol>
+<li>Full Text Index Types</li>
+<ul>
+<li>Lucene &amp; Solr</li>
+<li>Aggregate Index - query time aggregation</li>
+</ul>
+<li><b>Lucene Property Index</b></li>
+<ul>
+<li><b>Since OAK-1.0.9 Lucene Property indexes are preferred indexes over other type of indexes</b></li>
+<li>Async</li>
+<li>Combines properties &amp; full-text.</li>
+<li>Supports property condition, range conditions, ordering, full-text</li>
+<li>Index-time aggregation - performance improvements</li>
+<li>Using Lucene &amp; Solr.</li>
+<li>Follow instructions for creating the index nodes as in the <a href="http://jackrabbit.apache.org/oak/docs/query/lucene.html" target="_blank">OAK's Lucene documentation</a>.</li>
+</ul>
+<li><b>Property Index</b></li>
+<ul>
+<li>Default Indexes</li>
+<li>Synchronous</li>
+<li>Unique or Non-Unique</li>
+<li>eg. UUID</li>
+<li>property equals query works best</li>
+</ul>
+<li>NodeType Index</li>
+<ul>
+<li>Internally Uses Property Index</li>
+<li>Uses primaryType and mixins to identify nodes</li>
+</ul>
+<li>Traversing Index</li>
+<ul>
+<li>Traverses Repo</li>
+<li>Does not store any data</li>
+<li>Used to retrieve the given path or its child nodes (sometimes the parent nodes as well)</li>
+</ul>
+<li>Ordered Index</li>
+<ul>
+<li>Async</li>
+<li>Not recommended of nodes &gt; 1000 nodes</li>
+</ul>
+</ol>
+</ol>
+<h3 style="text-align: left;">
+Index Management</h3>
+<ol style="text-align: left;">
+<li>Currently, the indexes can be found under /oak:index/ on AEM.</li>
+<li>Once you have identified the best indexes, plan to install them as a package on AEM.</li>
+<li>Re-indexing is usually not needed. However when you see degrade in system performance, do double check your existing indexes if it would need a re-index.</li>
+<li>Re-index is a costly and resource intensive operation. Use it only when any oak upgrade or &nbsp;mentioned explicitly in release doc for any patch or hotfix</li>
+<li>Avoid having multiple properties in index , it may slow your query , its recommended to have one index for each property.</li>
+<li>Set the system property &nbsp;oak.queryLimitInMemory to 200000 (or something similar). This will limit the traversal of the nodes to that number</li>
+</ol>
+<br />
+<h2 style="text-align: left;">
+Finally...</h2>
+Jackrabbit Oak is a project under active development, especially around the area of Indexing. Hence please check official documentation for details. Indexing and tuning requires a lot of observation and practice to get perfect.<br />
+<br />
+I would recommend watching a <a href="http://dev.day.com/content/ddc/en/gems/aem-6-oak--mongomk-and-queries.html" target="_blank">webinar on this topic</a>&nbsp;by Thomas Muller and Marcel Reutegger on AEM Gems, which is a bit old (before OAK-1.0.9 was released), but immensely useful to understand indexing on Jackrabbit Oak.<br />
+<br />
+Happy Indexing!!!<br />
+<div>
+<br /></div>
+</div>
+<div class="blogger-post-footer">- Thomas Joseph</div>

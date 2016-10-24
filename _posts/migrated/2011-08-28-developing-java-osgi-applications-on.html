@@ -1,0 +1,112 @@
+---
+layout: post
+title: Developing Java / OSGi applications on Day CQ
+date: '2011-08-28T13:21:00.000+05:30'
+author: Thomas Joseph
+tags:
+- Java
+- Day CQ
+- OSGi
+- CQ
+- CQ5
+- Tips
+modified_time: '2012-04-28T09:08:32.454+05:30'
+blogger_id: tag:blogger.com,1999:blog-5715425530181339158.post-1341798160475359440
+blogger_orig_url: http://tech.ethomasjoseph.com/2011/08/developing-java-osgi-applications-on.html
+---
+
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<br />
+Day CQ is a very popular enterprise CMS (Content Management System) suite from Adobe. Although most of the time the development on Day CQ is related to CMS and most of the development can be mapped to a proper CMS system, there are times when you would need to develop some logic in your application, or need to develop some feature that may not be available readily within Day CQ. In these cases, you may need to write some application code.<br />
+<br />
+Day CQ is a Java based software, and Java is the most popular way to develop custom features and application logic. To be specific, Day CQ is largely built using OSGi - a technology that enables you to develop truly modular applications. Developing any custom Java application modules also needs to be built on OSGi.<br />
+<br />
+I have noticed that developing OSGi modules is often a pain for a CMS developer, largely because of the lack of full development support&nbsp; (or call it a buggy development support) from the CRXDE (The bundled Eclipse based IDE), which makes OSGi module development to take long time and painful. This post intends to give more insights to a CQ developer on OSGi, and also to do faster development of OSGi modules with OSGi.<br />
+<br />
+<a name='more'></a><br /><br />
+<h2 style="text-align: left;">
+
+<span style="font-size: x-large;">Why the development pain?</span></h2>
+Why is OSGi development painful with vanilla Day CQ development environment? Day CQ provides an Eclipse based IDE called as CRXDE. It is excellent for typical CMS development, but when it comes to developing Java applications, it lacks a lot of features, where a regular Eclipse (or your favorite IDE) will win.<br />
+<br />
+CRXDE is not a Eclipse plugin, but rather an RCP application. For this reason, we cannot add any plugins to the CRXDE, as in a regular Eclipse. For this reason, it is not possible to create a regular Java/Maven project in CRXDE, and regular Java development is not possible. Although CRXDE allows us to write Java code, it is buggy. I have often encountered unwarranted compilation errors in Java code. Moreover, we cannot enhance the IDE with any plugin, such as Maven, which is useful for dependency resolution.<br />
+<h2 style="text-align: left;">
+
+<span style="font-size: x-large;">Utilize the expertise&nbsp;</span></h2>
+It would have been the best thing, if CRXDE was available as an 
+Eclipse plugin. But since it is not, we will explore options where we 
+will develop OSGi bundles where we will use the tools for which they are good at. Use CRXDE for regular CMS development - 
+develop templates, components, workflows etc. Use regular Eclipse (or 
+your favorite IDE) for Java / OSGi development. Use Maven for build and 
+dependency resolution.<br />
+<br />
+One
+ may have some workarounds with CRXDE itself, but again, if we follow 
+the approach I give below, it would be save a lot of our development 
+time, apart from the ease of development.<br />
+<br />
+How each of these tools are used independently is beyond the scope of this post, but rather my focus here is to provide an approach to use these tool in a collaborative manner to make CQ development easy. That apart, we will use few more toolis specific to OSGi, that will make our life simpler when developing OSGi bundles.<br />
+<br />
+<h3 style="text-align: left;">
+
+<span style="font-size: x-large;">Developing bundles for Day CQ</span></h3>
+Let me outline the approach on how we will develop, test and finally deploy the OSGi bundles on Day CQ and see it working.<br />
+<ul style="text-align: left;">
+<li>Make a Maven project which can create OSGi bundles.</li>
+<li>Write code and install the bundles in local maven repository.</li>
+<li>Test the bundle </li>
+<li>Configure Day CQ's Felix web console to install bundles just created</li>
+<li>Test the Day CQ applications for the bundle just created.</li>
+</ul>
+Let me demonstrate the approach with the famous "Hello World" example, since it is better than giving abstract instructions and code samples. We will create three bundles:<br />
+<ol style="text-align: left;">
+<li>a hello world API bundle</li>
+<li> a hello world Service implementation bundle</li>
+<li>a client test bundle which will utilise the hello world service</li>
+</ol>
+Note however, that this approach will be more useful when you have complex requirements and more external maven dependencies.<br />
+<br />
+I have made this "Hello World" application available on <a href="https://github.com/ethomasjoseph/javabumps/tree/master/osgi/hello-world">github</a>.<br />
+<ul style="text-align: left;">
+</ul>
+<h3 style="text-align: left;">
+
+<span style="font-size: large;">Create a Maven Project for your OSGi bundle</span></h3>
+I suggest to use Maven for your OSGi bundle projects because:<br />
+<ul style="text-align: left;">
+<li>Maven is excellent in managing all the dependencies </li>
+<li>Creating OSGi bundles with Maven Bundle Plugin cannot get simpler. It automatically takes care of including any headers required due to the transitive dependencies.</li>
+<li>The learning from Maven can always be reused in your other projects as well, since Maven focuses on convention over configuration.</li>
+</ul>
+I prefer to use the following configuration for Maven Bundle Plugin:<br />
+<pre class="brush: xml">&lt;plugin&gt;
+ &lt;groupId&gt;org.apache.felix&lt;/groupId&gt;
+ &lt;artifactId&gt;maven-bundle-plugin&lt;/artifactId&gt;
+ &lt;version&gt;${bundle-plugin.version}&lt;/version&gt;
+ &lt;extensions&gt;true&lt;/extensions&gt;
+ &lt;configuration&gt;
+  &lt;instructions&gt;
+   &lt;Bundle-Name&gt;${project.name}&lt;/Bundle-Name&gt;
+   &lt;Bundle-Description&gt;${project.description}&lt;/Bundle-Description&gt;
+   &lt;Export-Package&gt;${bundle.namespace};version="${project.version}"&lt;/Export-Package&gt;
+   &lt;Private-Package&gt;${bundle.namespace}.internal.*&lt;/Private-Package&gt;
+   &lt;_removeheaders&gt;Ignore-Package,Include-Resource,Private-Package,Embed-Dependency&lt;/_removeheaders&gt;
+   &lt;_include&gt;-osgi.bnd&lt;/_include&gt;
+  &lt;/instructions&gt;
+ &lt;/configuration&gt;
+&lt;/plugin&gt;
+</pre>
+Here I have a osgi.bnd file place besides the pom.xml which has any specific instructions that needs to be provided to the bnd when creating the bundle. This will also override any instructions that are provided at the POM level (eg. some inherited instructions). For more details on the plugin, visit the <a href="http://felix.apache.org/site/apache-felix-maven-bundle-plugin-bnd.html">official documentation</a> for the Maven bundle plugin.<br />
+<br />
+<br />
+<h2 style="text-align: left;">
+
+<span style="font-size: x-large;">What's next?</span></h2>
+I have given a heads up on a less painful and more robust method to develop OSGi bundles for Day CQ. But there are more things, that can make things easier when developing applications on Day CQ. This would require a more deep dive into OSGi, and I will try to illustrate approaches that uses OSGi's best practices while making the OSGi development easy.<br />
+<br />
+So mark this space for more on OSGi development with Day CQ!<br />
+<br />
+<br />
+<br />
+<br />
+<br /></div><div class="blogger-post-footer">- Thomas Joseph</div>
